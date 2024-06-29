@@ -1,0 +1,123 @@
+- Lộ trình đi từ điểm đầu đến điểm cuối trong mạng Internet chính là các kết nối giữa các máy tính.
+- Địa chỉ IP có tính chất giống như địa chỉ nhà ở ngoài đời thật, và địa chỉ này là duy nhất trong toàn mạng cũng giống như một địa chỉ nhà bạn là duy nhất trong toàn thành phố nơi bạn sống.
+- Như vậy mạng Internet bản chất chính là việc kết nối các thiết bị hạ tầng mạng với nhau bằng dây dẫn theo một cấu trúc và quy tắc nhất định.
+- Mặc dù Internet được chính phủ và quân đội Mỹ tạo ra, nhưng họ không sở hữu Internet. Thực tế, không một cá nhân, tổ chức hay chính phủ nào dám khẳng định họ sở hữu toàn bộ Internet cả. Tuy nhiên, những giao thức quan trọng, ví dụ TCP/IP, góp phần tạo nên Internet được quản lý bởi một vài tổ chức có nhiệm vụ duy trì, cải thiện và nâng cấp giao thức khi nó dần không còn đủ khả năng đáp ứng được sự tăng trưởng nhanh chóng của cộng đồng người dùng Internet nữa. Ví dụ IPv6 đang dần thay thế IPv4.
+- Nói cách khác, mạng nhà bạn là một mạng LAN, mạng trong công ty bạn là một mạng LAN, mạng trong quán cà phê cũng là một mạng LAN.
+- Khái niệm Intranet hay được dùng để chỉ mạng riêng của một công ty, một doanh nghiệp, tập đoàn hay xí nghiệp. Bản chất của Intranet là một mạng LAN và được kiểm soát bởi chính phủ, ISP và bởi ban giám đốc của chính công ty đang dùng mạng Intranet đó.
+- Intranet chủ yếu được dùng để chia sẻ các thông tin trong nội bộ công ty giữa các thành viên trong công ty với nhau. Các thông tin được trao đổi này có thể là thông tin nhạy cảm, ảnh hưởng đến lợi ích của công ty hoặc khách hàng của công ty, thế nên mạng Intranet được thiết kế theo kiểu chỉ có những nhân viên của công ty được quyền sử dụng máy tính được kết nối mạng Intranet của công ty hoặc những nhân viên được cấp đường truyền VPN đến mạng Intranet của công ty mới được phép truy cập vào mạng Intranet.
+- Nói một cách khác, nếu không có kết nối VPN được công ty cấp, người bên ngoài công ty không thể truy cập vào được mạng Intranet, nhưng người bên trong Intranet lại có thể truy cập ra Internet nếu được cho phép.
+- Mạng Extranet là một phần của một mạng Intranet. Mạng Extranet được dùng để cấp quyền truy cập giới hạn và an toàn cho những cá nhân có quyền truy cập vào những thông tin được lưu trữ bên trong mạng Intranet.
+- Mạng MAN viết tắt của Metropolitan Area Network. Mạng MAN được cấu thành từ các mạng LAN trong phạm vi một thành phố hoặc một khu vực địa lí rộng lớn có thể là tập hợp của nhiều thành phố miễn là khu vực này nằm trong bán kính từ 5 – 50 km. Ví dụ tất cả mạng LAN trong khu vực thành phố Hà Nội sẽ hợp thành một mạng MAN hoặc tất cả các mạng LAN nằm ở trong một khu vực
+- Mạng WAN viết tắt của nó là Wide Area Nework. Mạng WAN có thể được cấu thành từ các mạng MAN cũng như các mạng LAN nằm trên một khu vực có bán kính lớn hơn 50 km. Mạng WAN có thể bao trùm nhiều quốc gia thậm chí là châu lục. Ví dụ điển hình của mạng WAN là mạng Internet của chúng ta hiện nay.
+- Địa chỉ MAC viết tắt của Media Access Control hay còn gọi được gọi là Physical Address (địa chỉ vật lý) được xem như là số chứng minh nhân dân của một thiết bị mạng. Địa chỉ MAC của một thiết bị được xem là duy nhất trên toàn thế giới. Và căn cứ vào địa chỉ MAC chúng ta có thể xác định được nhà sản xuất của thiết bị mạng đó.
+- Trải qua vài chục năm phát triển, mô hình OSI tuy đã thua mô hình TCP/IP và không còn được xem là tiêu chuẩn của thế giới Internet. Tuy nhiên, do mô hình OSI và TCP/IP có rất nhiều điểm tương đồng, chưa kể theo tài liệu học CCNA của Cisco Press, trước khi cuộc chiến quyết định xem một trong hai mô hình, TCP/IP hoặc OSI, cái nào sẽ trở thành tiêu chuẩn chung của thế giới Internet (vào khoảng cuối thập niên 1980s và đầu 1990s), nhiều hãng sản xuất phần cứng cũng như phát triển protocol (giao thức) cho mạng Internet đã sử dụng các thuật ngữ trong mô hình OSI để phát triển tài liệu hướng dẫn sử dụng cho sản phẩm của họ. Và những thuật ngữ đó vẫn tồn tại cho đến ngày nay. Thế nên, để có thể hiểu được một cách khái quát các thuật ngữ trong hệ thống mạng hiện đại, bạn cần phải có kiến thức về mô hình OSI.
+- Simplex mode (Một chiều): Đúng như tên gọi, ở chế độ Simplex mode và ở bất cứ thời điểm nào, sẽ chỉ có duy nhất một máy có khả năng truyền dữ liệu, thiết bị còn lại chỉ có thể nhận dữ liệu. Ví dụ: chuột hay bàn phím của bạn, chỉ có thể gửi dữ liệu đi chứ không thể nhận dữ liệu được.
+- Half-duplex: Với chế độ half-duplex, cả 2 máy A và B đều có thể nhận và gửi dữ liệu. Tuy nhiên, tại một thời điểm nhất định, sẽ chỉ có duy nhất 1 thiết bị gửi dữ liệu mà thôi.
+- Full-duplex: Với full-duplex, cả hai thiết bị đều có thể gửi và nhận dữ liệu cùng một lúc. Ví dụ mạng viễn thông di động là một mạng full-duplex vì bạn có thể vừa nghe vừa nói cùng một lúc.
+- Dịch vụ mạng chính là những công cụ cho phép người dùng Internet làm một điều cụ thể nào đó. Nếu so sánh Internet là một cửa hàng bán dụng cụ thiết bị, thì dịch vụ mạng chính là tất cả những mặt hàng mà cửa hàng đó cung cấp
+- Do mô hình TCP/IP là một mô hình mở, nên bất cứ nhà phát triển hay nhà nghiên cứu nào cũng có thể tự tạo nên một giao thức mới hoặc một dịch vụ mạng mới miễn là dựa trên mô hình TCP/IP. Ví dụ như để gửi email, ngoài POP3, ta còn có các giao thức như IMAP, SMTP và Exchange.
+- Network ports (hay còn gọi là cổng mạng) là một khái niệm trừu tượng thuộc lớp Transport trong mô hình TCP/IP. Network ports được dùng để cung cấp một dịch vụ mạng nhất định nào đó thông qua một giao thức được chỉ định hoạt động tại network port đó.
+- Tất cả các network ports đều sử dụng một trong hai giao thức TCP và/hoặc UDP của lớp Transport để tạo và duy trì kết nối giữa máy cung cấp dịch vụ và máy yêu cầu dịch vụ trong lúc dịch vụ mạng đang được thực hiện. Những port sử dụng giao thức TCP được gọi là TCP ports, những port sử dụng UDP được gọi là UDP ports.
+- Mỗi network port sẽ chạy một giao thức giao thức nhất định, và số lượng port mà mỗi một host có thể có lên đến 65 535 ports.
+- Khi một port đang chạy một giao thức hay liên kết nào đó, nó sẽ được gọi là port mở, khi không có giao thức hay liên kết nào được chạy, port đó sẽ bị đóng lại để tránh bị hacker lợi dụng tấn công.
+- Các ports mở không nhất định phải theo trình tự. Nghĩa là không cần port 10, 11 phải mở thì port 12 mới được mở.
+- Một host hoặc server có thể cùng một lúc chạy nhiều giao thức trên nhiều network ports khác nhau. 
+- Một cách tóm tắt thì FTP sẽ hoạt động như sau: 
+	- Bạn sẽ được cấp cho một tài khoản với username và password để từ máy của bạn (client) kết nối đến máy chủ đang chạy FTP (server).
+	- Bạn sẽ dùng username và password được cấp để đăng nhập vào server FTP.
+	- Server FTP làm nhiệm vụ xác thực username và password của bạn, nếu hợp lệ sẽ cho phép bạn truy cập vào server FTP cũng lưu trữ các file dữ liệu.
+	- Sau khi đã đăng nhập, bạn có quyền tải file dữ liệu của mình lên FTP server để chia sẻ cho mọi người dùng trong mạng, hoặc download dữ liệu từ FTP server xuống máy của bạn.
+- Giao thức FTP sử dụng giao thức TCP. Để thực hiện việc trao đổi dữ liệu, 2 đường truyền TCP sẽ đuwọc sử dụng song song. Một đường truyền dùng cho việc quản lý và một dành cho dữ liệu.
+- Đường truyền quản lý (port 21) sẽ được dùng để gửi username và  password từ máy client đến server, nhận lệnh từ máy client (ví dụ như  lệnh download file, upload file), v.v.
+- Đường truyền dữ liệu (port 20) sẽ được dùng để client có thể gửi file từ máy mình đến và lưu trữ file tại máy chủ server. 
+- Trên Linux, bạn có thể dùng lệnh sau để kết nối đến FTP server. 
+1
+2
+3
+ftp <IP-address> <port>  
+hoặc 
+nc <IP-address> <port> 
+
+- Trên Linux, bạn có thể kết nối với SSH server bằng lệnh sau: 
+1
+2
+3
+ssh <IP-address>/<host>  
+hoặc
+ssh username@<IP-address>/<host>
+- Trên Linux, bạn có thể kết nối với Telnet server bằng command sau:
+1
+telnet <IP-address>/<host> 
+- POP3 là một giao thức nhận email một chiều do nó chỉ có một chiều tương tác từ server đến máy bạn và không có chiều ngược lại. Nghĩa là khi email được chuyển tới email server, POP3 sẽ download email đó xuống máy của bạn; sau khi hoàn thành tác vụ này, nó sẽ xóa luôn email gốc đang được lưu trên email server của bạn.
+- Trái ngược với POP3, giao thức IMAP, viết tắt của Internet Message Access Protocol, là một giao thức nhận email 2 chiều và sử dụng giao thức TCP. Nghĩa là nó không chỉ giao tiếp từ máy client đến server mà có cả chiều giao tiếp từ server đến client nữa. Không như POP3, IMAP không download toàn bộ nội dung email từ server xuống máy của bạn mà lưu trữ hoàn toàn trên mail server. IMAP chỉ download phần đầu thư bao gồm địa chỉ nhận, địa chỉ gửi xuống thôi. Điều này cho phép nhiều thiết bị khác nhau có thể xem nội dung của cùng 1 email.
+- Giao thức SMTP viết tắt của Simple Mail Transfer Protocol. Đây là một giao thức client-server và server-server. Giao thức SMTP được dùng để gửi email từ người gửi đến SMTP mail server của người nhận nhờ vào việc sử dụng một phần mềm được gọi là Message Transfer Agent (MTA).
+- Giao thức SMB viết tắt của Server Message Block. Giao thức SMB sử dụng giao thức TCP. SMB là một giao thức quan trọng và mặc định trên Windows, nó có chức năng gần giống với giao thức FTP. SMB sẽ cho phép người dùng truy cập từ xa vào hệ thống máy chủ hoặc máy tính để truy xuất, mở và chỉnh sửa dữ liệu được lưu tại máy chủ hoặc máy tính đó.
+- Khi bạn truy cập một website ví dụ trang  tuhocnetworksecurity.business.blog, server host website này không nằm  trong hệ thống mạng của bạn. Lúc này quá trình gửi HTTP GET request sẽ diễn ra như sau theo mô hình TCP/IP:
+- Hệ thống DNS sẽ hoạt động để phân giải tên miền thành địa chỉ IP được gán với tên miền đó.
+	- Các bạn lưu ý là một số Wifi router tại nhà hiện nay có cả chức năng DNS, địa chỉ của hệ thống DNS này chính là địa chỉ default gateway hay là địa chỉ IP của Wifi router của bạn trong mạng.
+	- Tên miền cần truy cập đầu tiên sẽ được kiểm tra với cơ sở dữ liệu của hệ thống DNS trong mạng xem có địa chỉ IP của tên miền tuhocnetworksecurity.business.blog hay không? Nếu không có, DNS trong mạng sẽ chuyển tiếp truy vấn tìm địa chỉ IP của tên miền đến hệ thống DNS tại ISP (nhà cung cấp dịch vụ mạng ví dụ Viettel, VNPT) để tra cứu tiếp. Nếu lại không có, truy vấn sẽ được chuyển tiếp đến các hệ thống DNS khác cho đến khi tìm được địa chỉ IP gán với tên miền tuhocnetworksecurity.business.blog mới thôi.
+- Sau khi địa chỉ IP của tên miền tuhocnetworksecurity.business.blog đã được tìm thấy, một gói tin HTTP GET sẽ được chuẩn bị tại lớp Application sau đó sẽ được chuyển đến lớp Transport.
+- Tại lớp Transport, như các bạn đã biết hai giao thức chính của lớp này là TCP và UDP. Giao thức HTTP dựa trên giao thức TCP, nên tại đây gói tin HTTP GET sẽ được chia nhỏ thành các segments với kích thước thỏa mãn MTU (Maximum Tranmission Unit) là không nhỏ hơn 68 bytes và không lớn hơn 576 bytes với IPv4 và không lớn hơn 1280 bytes với IPv6, nhằm để tránh việc segment chuyển đi bị hư hao trên đường đi. Đồng thời TCP three way handshake cũng sẽ được thực hiện.
+	- UDP sẽ không thực hiện các bước trên vì đơn giản nó chẳng quan tâm gói tin gửi đi có bị hư hao hay có bị mất hay không.
+- Sau đó, các segments sẽ được chuyển đến lớp 3, Network, và được chuyển thành các packets (gói tin) dữ liệu, tại đây các thông tin quan trọng như địa chỉ IP điểm đến và điểm gửi cùng các thông số như TTL, v.v sẽ được thêm vào. Lúc này IP điểm gửi là địa chỉ IP public sau khi đã được giao thức NAT xử lý.
+- Sau đó, các packets sẽ được chuyển xuống đến lớp 2, Data Link, địa chỉ MAC của default gateway hay rourter mạng sẽ được thêm vào. Các packets sẽ được chuyển thành các frame dữ liệu.
+- Sau đó, các frame dữ liệu này sẽ được đẩy xuống lớp 1, Physical, frame dữ liệu sẽ được chuyển thành các bits dữ liệu nhị phân (0 và 1) trước khi được đưa vào hệ thống cáp mạng để truyền được truyền ra khỏi mạng.
+- Dữ liệu lúc này sẽ được truyền qua nhiều nút mạng khác nhau thông qua giao thức định tuyến (routing protocols). Tại mỗi router, địa chỉ IP điểm đến sẽ được tra cứu với routing table được lưu tại router đó. Khi đó, các trường hợp sau sẽ xảy ra:
+	- Nếu địa chỉ IP điểm đến nằm trong IP table của router đó, router đó sẽ chỉ đường cho dữ liệu để đến đích đến.
+	- Nếu địa chỉ IP điểm đến không nằm trong IP table của router đó, router đó sẽ kiểm tra xem, trong IP table của mình có địa chỉ IP nào ở cùng mạng với IP điểm đến hay không? Nếu có, router đó sẽ chỉ đường cho dữ liệu đến với mạng có chứa IP đó.
+	- Nếu cả hai phương án trên đều không tìm được IP điểm đến, dữ liệu sẽ được chuyển đến địa chỉ default gatewar của mạng đó để được chuyển tiếp qua một mạng khác.
+	- Lưu ý là trong quá trình chuyển tiếp giữa các routers, địa chỉ MAC address đính kèm trong gói tin luôn thay đổi thành địa chỉ MAC của router gần nhất đã chuyển dữ liệu đi. Địa chỉ IP điểm đến và điểm đi thì vẫn được giữ nguyên.
+	- Quá trình này sẽ tiếp diễn cho đến khi dữ liệu đến được điểm cần đến. Khi đó, lộ trình đã đi qua để đến điểm đến sẽ được lưu vào routing table để lần sau, dữ liệu không cần phải tìm đường đi như lần đầu nữa.
+- Tại điểm đến, dữ liệu sẽ được sẽ được xử lý theo các bước sau:
+	1. Các bits dữ liệu được nhận và được chờ xử lý tại lớp Physical.
+	2. Các bits dữ liệu sau đó được đưa lên lớp Data Link và được chuyển đổi thành frames dữ liệu. Sau đó, chúng được kiểm tra xem địa chỉ MAC trong dữ liệu đến có trùng với địa chỉ MAC của thiết bị hay không. Địa chỉ MAC này do router mạng của máy điểm đến cung cấp thông qua giao thức ARP.
+	3. Nếu địa chỉ MAC trùng khớp, các frames dữ liệu này được đưa lên lớp 3 Network, và được chuyển đổi thành packets, tại đây địa chỉ IP sẽ được check và đồng thời các packet sẽ được kiểm tra xem dữ liệu nhận được có bị lỗi hay mất mát hay không. Quá trình này được gọi là Checksum và chỉ xảy ra với IPv4.
+	4. Sau đó các packets được truyền lên lớp Transport và chuyển hóa thành segments
+	5. Sau đó các segments này sẽ được chuyển lên lớp Application và chuyển đổi thành dữ liệu (data). Trong trường hợp chúng ta đang gửi gói tin HTTP GET, các dữ liệu này sẽ được chuyển đến port 80 đang chạy giao thức HTTP.
+	6. Vậy là chúng ta đã đến được điểm cần đến
+1. Lớp Physical
+- Tapping attacks: Tại lớp Physical, khi dữ liệu được truyền qua hệ thống cáp mạng dưới dạng nhị phân. Hackers có thể sử dụng những dụng cụ đặc biệt gắn vào dây cáp mạng mục đích là dùng để dịch dữ liệu từ nhị phân sang dữ liệu đọc được nhằm đánh cắp thông tin.
+- Wifi evil twin: Hackers có thể tạo ra một trang truy cập wifi giả mạo giống y hệt với trang đăng nhập wifi mà bạn thường truy cập (bạn nào hay đi sân bay sẽ biết cách thức kết nối mạng này) và lừa bạn truy cập vào trang đăng nhập giả để lấy mật khẩu wifi bạn đang muốn truy cập hoặc thông tin cá nhân của bạn.
+- Evil twin wifi hotspots: Hackers còn có thể tự tạo ra một mạng wifi công cộng với tên và password gần tương tự với một mạng wifi công cộng thật và lừa người dùng vào đó để đánh cắp thông tin hoặc để gửi mã độc đến máy của bạn.
+- Phishing emails: Hackers sẽ tạo ra một email giả mạo là ISP (nhà cung cấp dịch vụ mạng) của bạn yêu cầu bạn bấm vào đường link dẫn đến một trang giả mạo đã được tạo nên từ trước và yêu cầu bạn cung cấp tên mạng và mật khẩu wifi bạn đang dùng
+- DoS (Denial of Service): Giả dụ như bạn muốn kết nối với mạng công ty để làm việc. Sau khi hackers đã thành công xâm nhập vào mạng của công ty bạn thông qua Information Stealing rồi, họ có thể tiến hành tấn công vào router wifi của công ty bạn làm cho tất cả nhân viên hoặc các máy đang kết nối với mạng bị kick/đuổi ra khỏi mạng và không thể kết nối lại được.
+- Rogue device injection: Hackers có thể giả dạng thành nhân viên bảo trì hệ thống hoặc mua chuộc những nhân viên có thể tiếp cận các thiết bị mạng để nhờ họ cắm usb chứa mã độc hoặc backdoor vào hệ thống, giúp hacker phát tán ransomeware, virus hoặc truy cập và điều khiển hệ thống từ xa.
+2. Lớp Data Link
+- Man-in-the-middle: Đây là hình thức tấn công mà dữ liệu được truyền đi từ điểm gửi sẽ được chuyển tiếp đến máy của hacker sau đó tùy vào hacker quyết định mà dữ liệu hoặc sẽ được truyền đến điểm đích hoặc không
+- MAC spoofing: MAC spoofing là một hình thức mà hackers sẽ ăn cắp địa MAC của một thiết bị ở trong mạng, thường là địa chỉ MAC của default gateway. Sau đó hackers sẽ thay đổi địa chỉ MAC của mình trở thành địa chỉ MAC của default gateway từ đó có thể xem hết nội dung của các dữ liệu được gửi trong mạng.
+- STP attacks: STP (Spanning Tree Protocol) là một  giao thức ở lớp 2, được sử dụng để chỉ định đường đi của các frames dữ  liệu. Trong thực tế, để dự phòng trường hợp kết nối từ thiết bị A đến  thiết bị B bị đứt, sẽ luôn có ít nhất 2 kết nối giữa A và B. Tuy nhiên  lúc này lại xảy ra trường hợp là gói tin không biết sẽ dùng đường nào để  đi từ A đến B và ngược lại. Ngoài ra một trường hợp vô cùng tồi tệ khác  được gọi là vòng lặp dữ liệu (loops), xảy ra khi một frame dữ liệu sau  khi đi qua kết nối số 1 đến điểm đích, thay vì dừng lại nó lại đi tiếp  qua kết nối số 2 đồng thời tự khuếch đại chính nó và tạo nên một vòng  lặp dữ liệu không ngừng và lượng dữ liệu ngày càng lớn có thể gây ra sập  mạng. 
+- Giao thức STP ra đời để khóa đi các kết nối dự phòng giữa A và B để  chống loops và chỉ chừa lại một con đường duy nhất để truyền dữ liệu  thôi. Khi đường truyền này bị đứt, một đường truyền dự phòng sẽ được mở  ra. 
+- Do STP được thiết lập trên switches, hackers có thể lợi dụng điểm này  ăn cắp địa chỉ MAC của switch được thiết lập STP và biến mình thành  switch đó để đọc dữ liệu được truyền qua, hoặc tắt STP đi để mạng bị  sập. Đây là một hình thức tấn công DoS và Man-in-the-middle. 
+- CAM overflows: CAM viết tắt của Content Addressable Memory hay MAC address table. Đây là cơ dở dữ liệu được switch dùng để tra cứu đường đi khi càn gửi dữ liệu giữa các máy trong mạng. Do số lượng địa chỉ MAC mà bảng CAM có thể chứa là có giới hạn, hackers có thể tấn công vào bảng CAM bằng cách liên tục gửi một lượng lớn địa chỉ MAC không có thực đến switch để thêm vào bảng CAM, làm cho bản CAM bị đầy tràn dẫn đến việc các địa chỉ MAC thật bị đẩy ra khỏi bảng CAM và không thể được thêm vào do bảng đã đầy. Hậu quả là dữ liệu không gửi đi được. Đây là một hình thức tấn công DoS.
+3. Lớp Network
+- ARP spoofing: Hackers có thể lợi dụng ARP table để thực hiện Man-in-the-middle attack bằng cách thay đổi dữ liệu trong ARP table. 
+  
+  Ví dụ chúng ta có giá trị trong ARP table như sau:
+- Máy A có MAC là: AA và IP là 192.168.0.2 (nạn nhân A)
+- Máy B có MAC là: BB và IP là 192.168.0.3 (nạn nhân B)
+- Máy C có MAC là: CC và IP là 192.168.0.4 (máy hacker)
+	1. Hacker muốn nghe xem A và B đang nói gì, để làm được điều đó, họ có thể thay đổi giá trị trong ARP table thành: 
+	- Máy A có MAC là: AA và IP là 192.168.0.2 (nạn nhân A)
+	- Máy B có MAC là: CC và IP là 192.168.0.3 (nạn nhân B)
+	- Máy C có MAC là: BB và IP là 192.168.0.4 (máy hacker)
+	1. Như bạn đã thấy hacker (máy C) đã cướp lấy địa chỉ MAC của B, do đó  mọi dữ liệu máy A gửi đến B đều sẽ được chuyển thẳng cho C chính là máy  của hacker. 
+- IP spoofing: Tương tự như MAC spoofing, nhưng thay vì ăn cắp địa chỉ MAC, lần này địa IP của máy nạn nhân sẽ bị ăn cắp và hackers sẽ dùng chính địa chỉ IP này để tấn công Man-in-the-middle hoặc DoS nếu hackers giả làm router
+- DHCP starvation: Như bạn đã biết DHCP được dùng để cấp địa chỉ IP tự động cho thiết bị mới kết nối vào mạng. Hackers có thể tạo ra một loạt địa chỉ MAC giả đồng thời gửi hàng loạt yêu cầu cấp IP đến DHCP server làm cho lượng địa chỉ IP được phép sử dụng để cấp cho máy mới bị cạn kiệt hoàn toàn khiến cho các máy khác không thể truy cập vào mạng được. Đây là một hình thức tấn công DoS.
+- DHCP spoofing: Hackers có thể chèn vào mạng một DHCP server do mình kiểm soát. Như bạn đã biết, khi trong mạng có nhiều hơn 1 DHCP server, server nào gửi phản hồi nhanh nhất, máy tính của bạn sẽ nhận IP từ server đó. Hackers có thể tấn công DHCP starvation trước để làm tiền đề tấn công DHCP spoofing. Mục đích chính là làm DHCP server chính không thể phản hồi được, và chắc chắn server của hacker sẽ là server phản hồi nhanh nhất.
+- Routing protocols attacks: Là những hình thức tấn công nhắm thẳng vào các giao thức định tuyến như BGP, OSPF, RIP v.v. để thực hiện tấn công DoS hoặc Man-in-the-middle.
+4. Lớp Transport
+- SYN flood: SYN là một trong 3 gói tin được gửi đi để hình thành TCP three way handshake. Hackers có thể tấn công DoS bằng cách gửi một lượng khổng lồ gói tin SYN giống như một cơn lũ gói tin SYN đến server nạn nhân và không phản hồi bất cứ gói tin SYN-ACK nào nhận được từ server nạn nhân. Server nạn nhân tuân theo quy tắc của TCP protocol, bắt buộc phải chờ gói tin ACK phản hồi lại từ máy của hacker, điều sẽ không bao giờ đến.
+- UDP flood: UDP flood được tiến hành dựa trên cách các servers phản hồi khi nhận được gói tin UDP. Khi nhận được gói tin UDP server sẽ: 
+	- Kiểm tra xem có bất cứ ứng dụng đang chạy nào ở trạng thái lắng nghe/chờ request tại port nhận được gói tin UDP hay không
+	- Nếu không có ứng dụng nào chờ/nhận gói tin UDP tại port đó, server sẽ hồi đáp bằng một gói tin ICMP để thông báo với người gửi rằng “ứng dụng không truy cập được”
+	- Hackers có thể tận dụng điều này để tấn công DoS bằng cách gửi một số  lượng lớn/một cơn lũ gói tin UDP đến server nạn nhân. Do vừa phải kiểm  tra hệ thống vừa phải hồi đáp bằng gói tin ICMP, server sẽ nhanh chóng  quá tải và không ai có thể truy cập server được nữa
+	- Một điểm cũng cần lưu ý là do khi gửi các gói tin đến máy nạn nhân, chắc chắn sẽ có kèm theo cả địa chỉ IP và địa chỉ MAC của máy gửi. Những dấu vết này rất quan trọng trong việc điều tra và bắt tội phạm mạng. Để hạn chế việc lộ tung tích của mình, hackers thường không dùng hình thức tấn công DoS mà sẽ sử dụng DDoS (Distributed Denial of Service).
+5. Lớp Application
+- DNS cache poisoning/DNS spoofing: Đây là hình thức  tấn công bằng cách khai thác các lỗ hổng tồn tại trong hệ thống DNS để  tiến hành thay đổi địa chỉ IP gắn với một domain nào đó. 
+	- Ví dụ: Địa chỉ IPv4 của tuhocnetworksecurity.business.blog trong DNS  là 192.168.52.4, hackers có thể tấn công vào hệ thống DNS và thay đổi  địa chỉ IP thành 192.168.40.59 là địa chỉ trang web giả mạo do hắn lập  nên nhằm mục đích dẫn dụ và tấn công những người truy cập vào đó. 
+	- Điểm nguy hiểm đó là do các hệ thống DNS thường tra cứu và cập nhật  dữ liệu với nhau, nên một hệ thống DNS bị đầu độc sẽ rất dễ lan dữ liệu  bị đầu độc sang các hệ thống DNS khác làm tăng số người bị dẫn dụ vào  website giả của hackers. 
+- Vulnerable software: Hackers có thể lợi dụng những lỗ hổng bảo mật chưa được vá trên các ứng dụng đang chạy trên server mục tiêu để tiến hành xâm nhập và điều khiển server hoặc tấn công những người truy cập vào trang web bị tấn công
+- HTTP flood: Do khả năng xử lý và phản hồi HTTP của server có giới hạn, nếu hackers sử dụng botnet để gửi một số lượng lớn HTTP request đến server có thể làm hệ thống bị quá tải và khiến người dùng không thể truy cập website được.
+- Proxy attacks: Proxy là một hệ thống đặc biệt được sử dụng như một cổng trung gian cho dữ liệu mạng ra vào mạng. Nghĩa là khi một dữ liệu được chuyển ra ngoài mạng, thay vì đi thẳng đến điểm đích, nó sẽ phải đi qua proxy server, proxy server sẽ lưu lại thông tin của dữ liệu bao gồm nội dung, địa chỉ IP đến, địa chỉ IP gửi, địa chỉ MAC v.v. Sau đó, proxy server sẽ hủy gói tin đã nhận được và tạo một gói tin khác với địa chỉ đến và nội dung giống y như nội dung của gói tin đã nhận, tuy nhiên địa chỉ MAC và địa chỉ IP người gửi sẽ là địa chỉ của proxy server, sau đó gói tin này được gửi đi.
+
+source: https://tuhocnetworksecurity.business.blog/category/series-tu-hoc-cybersecurity/series-mang-can-ban/
