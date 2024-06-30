@@ -79,7 +79,7 @@ Cũng tương tự như với file /etc/passwd và /etc/shadow, mỗi dòng là 
 * [2] x: Group password đã được ẩn đi
 * [3] 1002: GID (Group ID)
 * [4]: ABC, XYZ, shiba2: Tên của những user account là thành viên của group
-* 
+  
 #### Khi nhìn vào file /etc/group, bạn sẽ thấy nhiều group không có thành viên nào . Điều đó không có nghĩa là group đó không có thành viên. 
 #### Khi một user account sử dụng một group như là group mặc định, tên của user account đó sẽ không xuất hiện trong danh sách thành viên của group
 #### Để thêm bớt người dùng hoặc group, bạn tuyệt đối không được chỉnh sửa trực tiếp vào các file /etc/passwd, /etc/shadow hoặc /etc/group
@@ -90,28 +90,31 @@ Cũng tương tự như với file /etc/passwd và /etc/shadow, mỗi dòng là 
 * Cụm 1: rw-: Phân quyền dành người sở hữu file
 * Cụm 2: r– : Phân quyền dành cho những người cùng group với người sở hữu file
 * Cụm 3: r– : Phân quyền dành cho tất cả những người dùng khác trong hệ thống
+  
 Tóm lại dòng “-rw-r–r–” có nghĩa là, account root sẽ có quyền đọc và thay đổi, chỉnh sửa nội dung của file /etc/group. 
 Những người dùng ở chung group với root account sẽ chỉ có quyền truy cập và đọc nội dung của file /etc/group. 
-Tất cả người dùng khác trong hệ thống cũng sẽ chỉ có quyền truy cập và đọc nội dung mà thôi. 
+Tất cả người dùng khác trong hệ thống cũng sẽ chỉ có quyền truy cập và đọc nội dung mà thôi.
+
 Tiếp theo chúng ta hãy chú ý đến dòng “[1]root [2]root”.
-    * [1]root: Tên của người sở hữu file /etc/group
-    * [2]root: Tên group của người sở hữu file /etc/group 
+
+* [1]root: Tên của người sở hữu file /etc/group
+* [2]root: Tên group của người sở hữu file /etc/group 
 VD: ```-rw-rw-r-- 1 shiba3 shiba3 11 Nov 19 05:57 sample.txt```
     * Chủ sở hữu của file sample.txt là account shiba3
     * Shiba3 có quyền đọc và chỉnh sửa nội dung file cũng như được phép đọc nội dung của file
     * Các thành viên thuộc group shiba3 cũng có quyền đọc và thay đổi nội dung file sample.txt
     * Những user account không phải là owner của sample.txt cũng như không thuộc group shiba3 chỉ có quyền đọc file nhưng không có quyền thay đổi nội dung file
 ### Thay đổi phân quyền bằng ký tự 
-    * **u**: Phân quyền cho chủ sở hữu file
-    * **g**: Phân quyền cho group của chủ sở hữu file
-    * **o**: Phân quyền cho những người khác
+* **u**: Phân quyền cho chủ sở hữu file
+* **g**: Phân quyền cho group của chủ sở hữu file
+* **o**: Phân quyền cho những người khác
 Để cấp quyền bạn sẽ dùng dấu + và để rút quyền bạn sẽ dùng dấu – 
 ### Phân quyền bằng chữ số
 Khi cấp quyền bằng chữ số, sẽ có 3 chữ số được sử dụng. Ví dụ: 777.
 Trong đó:
-    * Chữ số thứ nhất được dùng để phân quyền cho owner
-    * Chữ số thứ 2 sẽ phân quyền cho group
-    * Chữ số thứ 3 được dùng để phân quyền cho những người khác.
+* Chữ số thứ nhất được dùng để phân quyền cho owner
+* Chữ số thứ 2 sẽ phân quyền cho group
+* Chữ số thứ 3 được dùng để phân quyền cho những người khác.
 ### SUID và SGID
 ```ls -lrt /usr/bin/python```
 ```-rwsrw-r-x   1 root     sys        31396 Jan 20  2014 /usr/bin/python```
@@ -132,6 +135,7 @@ Vì lẽ đó, chuyển quyền sở hữu khi bạn đang nắm account root l�
 ## Cấu trúc của hệ thống file trong Linux (*cái này mình chỉ takenote nên mình không có up ảnh, mọi người có thể search gg vì cái này có rất nhiều*)
 phần lớn các directories này (ngoại trừ /tmp), chỉ có root account mới có phân quyền thay đổi, chỉnh sửa, thêm bớt nội dung được chứa bên trong;
 nhằm hạn chế tình trạng hệ thống bị lỗi do một người dùng không phải root nào đó vô tình thay đổi dữ liệu bên trong các directories này. 
+
 *chúng ta sẽ không đi qua tất cả directory bên dưới mà sẽ chỉ tìm hiểu sơ lược một vài những directory quan trọng nhất thôi.*
 ### Directory /
 Nằm ở đỉnh của sơ đồ là directory /, hay còn được biết đến với cái tên root directory. Tất cả các directories hệ thống của Linux đều là con của directory root.
@@ -167,10 +171,10 @@ Directory /tmp được dùng bởi các ứng dụng trong hệ thống Linux �
 Những dữ liệu này sẽ bị xóa tự động khi ta khởi động lại hệ thống hoặc cho chạy tính năng tmpwatch để hẹn giờ xóa dữ liệu trong /tmp. 
 ### Directory /usr 
 Usr là viết tắt của user. Đây là cũng là một nơi chứa những phần mềm được sử dụng trong hệ thống Linux. Khác biệt chính ở đây đó là:
-    * /bin: Chứa các phần mềm câu lệnh phổ thông. Ví dụ như ls, cat, ping, ls, mkdir, v.v.
-    * /sbin: Chứa các phần mềm câu lệnh được sử dụng bởi system admin. Ví dụ như: init, ifconfig, fdisk, v.v.
-    * /opt: Chứa những phần mềm bên thứ 3. Ví dụ như : office, broswer, v.v.
-    * /usr/…: Chứa những phần mềm dành riêng cho distro Linux. Ví dụ như với Kali Linux, các công cụ như nmap, gobuster, wfuzz, v.v. dành cho việc pentest đều được tập trung bên trong những directories con của directory /usr
+* /bin: Chứa các phần mềm câu lệnh phổ thông. Ví dụ như ls, cat, ping, ls, mkdir, v.v.
+* /sbin: Chứa các phần mềm câu lệnh được sử dụng bởi system admin. Ví dụ như: init, ifconfig, fdisk, v.v.
+* /opt: Chứa những phần mềm bên thứ 3. Ví dụ như : office, broswer, v.v.
+* /usr/…: Chứa những phần mềm dành riêng cho distro Linux. Ví dụ như với Kali Linux, các công cụ như nmap, gobuster, wfuzz, v.v. dành cho việc pentest đều được tập trung bên trong những directories con của directory /usr
 Bên trong directory /usr có các directories con như:
     /usr/bin: Chứa các phần mềm dành cho người dùng như nmap, gobuster, v.v.
     /usr/sbin: Chứa các phần mềm dành để quản trị hệ thống
@@ -181,8 +185,8 @@ Var là viết tắt của variables. Directory /var là nơi chứa những bi�
 # Linux Căn Bản – Bài 9: Câu lệnh ln, find và grep
 Trong Linux command line, cũng có một kỹ thuật tạo shortcut được gọi là link bằng cách sử dụng câu lệnh ln. Cách hoạt động của shortcut và link là gần tương đương nhau mặc dù bản chất sẽ có khác biệt đôi chút.
  Sẽ có 2 dạng link trong Linux command line:
-    * Hard link
-    * Soft link
+* Hard link
+* Soft link
 ## Inode
 Trong hệ thống Linux, dữ liệu được lưu giữ ở hai phần khác nhau ở ổ cứng. Nội dung dữ liệu sẽ được lưu giữ trong các data blocks. 
 Nhưng thông tin về dữ liệu ví dụ như metadata, vị trị lưu trữ, v.v lại được lưu trữ trong Inode.
@@ -214,15 +218,19 @@ Soft link vẫn có thể hoạt động khi file nó trỏ tới và link nằm
 Vì bản thân soft link chỉ là một liên kết đến file mà nó trỏ tới, nên khi truy cập nội dung file bằng soft link và thay đổi nội dung bên trong, bạn đang thay đổi nội dung gốc của file mà soft link trỏ tới
 Khi bạn kiểm tra các thông tin của một soft link bằng lệnh ls -l, bạn sẽ thấy chữ “l” ở đầu báo hiệu đây là một link, ngoài ra ở phía cuối còn có tên file mà nó trỏ tới.
 ## Câu lệnh Find 
-Find là một câu lệnh mạnh mẽ dùng để tìm kiếm file dữ liệu trong Linux. Cú pháp cơ bản của câu lệnh find như sau:\n
-```find <flag>(optional) <tên-directory-nơi-bắt-đầu-tìm-kiếm> <nội-dung-cần-tìm>```\n
-Để tìm tất cả các file có phân quyền SUID chúng ta sẽ dùng câu lệnh sau\n
-```find / -perm -u=s -type f 2>/dev/null```\n
+Find là một câu lệnh mạnh mẽ dùng để tìm kiếm file dữ liệu trong Linux. Cú pháp cơ bản của câu lệnh find như sau:
+
+```find <flag>(optional) <tên-directory-nơi-bắt-đầu-tìm-kiếm> <nội-dung-cần-tìm>```
+
+Để tìm tất cả các file có phân quyền SUID chúng ta sẽ dùng câu lệnh sau
+
+```find / -perm -u=s -type f 2>/dev/null```
+
 Trong đó
-    */ : Bắt đầu tìm từ root directory là file có vị trí cao nhất trong sơ đồ cấu trúc file của hệ thống Linux\n
-    * -perm: Tìm những file thỏa mãn phân quyền theo sau\n
-    * -u=s: Tìm những file binary thuộc sở hữu của root nhưng có phân quyền SUID\n
-    * -type: Dạng file cần tìm \n
-    * f: Dạng file bình thường, không phải directory hay các file đặc biệt ví dụ như symbolic link, v.v.\n
-    *2>/dev/null: Chuyển tất cả những cảnh báo lỗi hoặc output lỗi vào /dev/null\n
+*/ : Bắt đầu tìm từ root directory là file có vị trí cao nhất trong sơ đồ cấu trúc file của hệ thống Linux
+* -perm: Tìm những file thỏa mãn phân quyền theo sau
+* -u=s: Tìm những file binary thuộc sở hữu của root nhưng có phân quyền SUID
+* -type: Dạng file cần tìm 
+* f: Dạng file bình thường, không phải directory hay các file đặc biệt ví dụ như symbolic link, v.v.
+*2>/dev/null: Chuyển tất cả những cảnh báo lỗi hoặc output lỗi vào /dev/null
 
