@@ -11,14 +11,14 @@ Nhưng do test1234 không thể được sử dụng cho các tác vụ ngoài s
 ### Phân quyền trong hệ thống Linux và câu lệnh chmod
 Trong Linux, có 4 quyền chính:
 * – (deny): Không được cấp quyền
-    * r (read): Cho phép bạn truy cập và đọc file dữ liệu
-    * w (write): Cho phép bạn chỉnh sửa, thay đổi nội dung, tạo mới hoặc xóa bỏ nội dung đang tồn tại trong file dữ liệu, cũng như bạn sẽ có quyền đổi tên dữ liệu được chứa bên trong file hiện tại
-    * x (execute): Cho phép bạn thực thi, chạy file dữ liệu, nếu file đó là một file thực thi
-    Ngoài được thể hiện dưới dạng ký tự, các quyền này còn được thể hiện dưới dạng số thập phân.
-    * 0 = –
-    * 1 = x
-    * 2 = w
-    * 4 = r
+* r (read): Cho phép bạn truy cập và đọc file dữ liệu
+* w (write): Cho phép bạn chỉnh sửa, thay đổi nội dung, tạo mới hoặc xóa bỏ nội dung đang tồn tại trong file dữ liệu, cũng như bạn sẽ có quyền đổi tên dữ liệu được chứa bên trong file hiện tại
+* x (execute): Cho phép bạn thực thi, chạy file dữ liệu, nếu file đó là một file thực thi
+Ngoài được thể hiện dưới dạng ký tự, các quyền này còn được thể hiện dưới dạng số thập phân.
+* 0 = –
+* 1 = x
+* 2 = w
+* 4 = r
 Như bạn đã biết, trong hệ thống số nhị phân số 1 được biểu trưng cho có và 0 biểu trưng cho không. 
 Như vậy, để thiết lập quyền x, bit nhị phân chỗ x phải được bật lên 1. 
 Cứ quyền nào được thiết lập thì bit ở chỗ đó sẽ được bật lên 1, những bit không được thiết lập sẽ là 0. 
