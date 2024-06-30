@@ -14,6 +14,7 @@ Trong Linux, có 4 quyền chính:
 * r (read): Cho phép bạn truy cập và đọc file dữ liệu
 * w (write): Cho phép bạn chỉnh sửa, thay đổi nội dung, tạo mới hoặc xóa bỏ nội dung đang tồn tại trong file dữ liệu, cũng như bạn sẽ có quyền đổi tên dữ liệu được chứa bên trong file hiện tại
 * x (execute): Cho phép bạn thực thi, chạy file dữ liệu, nếu file đó là một file thực thi
+  
 Ngoài được thể hiện dưới dạng ký tự, các quyền này còn được thể hiện dưới dạng số thập phân.
 * 0 = –
 * 1 = x
@@ -25,18 +26,22 @@ Như vậy, để thiết lập quyền x, bit nhị phân chỗ x phải đư�
 Cứ quyền nào được thiết lập thì bit ở chỗ đó sẽ được bật lên 1, những bit không được thiết lập sẽ là 0. 
 # Linux Căn Bản – Bài 7: User, Group, lệnh chmod, chown và phân quyền trong hệ thống Linux
 Phân quyền người dùng được theo dõi thông qua UID (User ID), UID là một chuỗi giá trị được gán cho một user account khi user accout đó được tạo ra trên hệ thống Linux. 
+
 Và giá trị UID này là độc nhất cho mỗi user account, nghĩa là sẽ không có chuyện 2 user account có cùng UID trên cùng một hệ thống Linux. 
+
 UID này được gán với một login name, chính là tên account mà các bạn dùng để đăng nhập hệ thống Linux
+
 ### File etc/passwd
 Hệ thống Linux sử dụng một file đặc biệt để gán login name và giá trị UID lại với nhau. File này có tên là passwd và có path là /etc/passwd.
 ```[1]root:[2]x:[3]0:[4]0:[5]root:[6]/root:[7]/bin/```
-    * [1] root: Tên của account và đây là account có quyền quản trị cao nhất
-    * [2] x: Password của account đã được ẩn đi
-    * [3] 0: UID của account. UID của account root luôn luôn là 0.
-    * [4] 0: GID (Group ID) của account
-    * [5] root: Mô tả account người dùng
-    * [6] /root: Path (địa chỉ/đường dẫn) của HOME directory của account
-    * [7] /bin/bash: Shell mặc định của account. (Shell mặc định của account root là shell cho phép nắm toàn quyền kiểm soát hệ thống Linux, nên cốt lõi của hành động privilege escalation hay nâng cấp đặc quyền là để lấy cho được shell mặc định của root)
+* [1] root: Tên của account và đây là account có quyền quản trị cao nhất
+* [2] x: Password của account đã được ẩn đi
+* [3] 0: UID của account. UID của account root luôn luôn là 0.
+* [4] 0: GID (Group ID) của account
+* [5] root: Mô tả account người dùng
+* [6] /root: Path (địa chỉ/đường dẫn) của HOME directory của account
+* [7] /bin/bash: Shell mặc định của account. (Shell mặc định của account root là shell cho phép nắm toàn quyền kiểm soát hệ thống Linux, nên cốt lõi của hành động privilege escalation hay nâng cấp đặc quyền là để lấy cho được shell mặc định của root)
+  
 Các account bên dưới root ví dụ như daemon, bin, v.v được gọi là những system accounts được tạo ra tự động bởi hệ thống Linux. 
 Những account này không được tạo ra dành cho người dùng bình thường mà được sử dụng cho các phần mềm hoặc tác vụ nền chạy ẩn trong hệ thống. 
 Để truy cập vào tài nguyên của hệ thống, các phần mềm hoặc tác vụ sẽ sử dụng những account này để truy cập vào hệ thống. 
