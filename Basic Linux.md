@@ -1,4 +1,3 @@
----
 # Linux Căn Bản – Bài 6: Phân quyền trong hệ thống Linux
 ### Phân biệt 2 cách tạo variable
 Cách 1: <tên-biến>=<giá-trị>
@@ -202,10 +201,10 @@ Find là một câu lệnh mạnh mẽ dùng để tìm kiếm file dữ liệu 
 Để tìm tất cả các file có phân quyền SUID chúng ta sẽ dùng câu lệnh sau\n
 ```find / -perm -u=s -type f 2>/dev/null```\n
 Trong đó
-    * / : Bắt đầu tìm từ root directory là file có vị trí cao nhất trong sơ đồ cấu trúc file của hệ thống Linux\n
+    */ : Bắt đầu tìm từ root directory là file có vị trí cao nhất trong sơ đồ cấu trúc file của hệ thống Linux\n
     * -perm: Tìm những file thỏa mãn phân quyền theo sau\n
     * -u=s: Tìm những file binary thuộc sở hữu của root nhưng có phân quyền SUID\n
     * -type: Dạng file cần tìm \n
     * f: Dạng file bình thường, không phải directory hay các file đặc biệt ví dụ như symbolic link, v.v.\n
-    * 2>/dev/null: Chuyển tất cả những cảnh báo lỗi hoặc output lỗi vào /dev/null\n
+    *2>/dev/null: Chuyển tất cả những cảnh báo lỗi hoặc output lỗi vào /dev/null\n
 
