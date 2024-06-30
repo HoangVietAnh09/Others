@@ -286,6 +286,126 @@ Do Vim cũng cho phép thực thi lệnh bên trong nên cũng tương tự như
 ## Bash scripting cơ bản
 
 # Linux Căn Bản – Bài 12: Quản lý phần mềm, tác vụ trên hệ thống Linux và tấn công leo thang đặc quyền đối với server Learn Linux
+## $PATH
+$PATH có liên quan đến cách một câu lệnh được thực thi.
+thực tế các files thực thi của các câu lệnh không nhất thiết phải nằm trong những directories trên mà có thể nằm ở bất kỳ đâu trong hệ thống. 
+khi bạn thực thi một câu lệnh trên Linux shell, hệ thống sẽ không kiểm tra tất cả directories tồn tại trong hệ thống nhằm tìm ra câu lệnh bạn muốn chạy đang được chứa tại directory nào mà nó sẽ chỉ nhìn vào environment variable hay $PATH để biết chính xác những directories câu lệnh cần chạy có thể được chứa mà thôi. 
+Trên Linux cũng khác mấy trên Windows, việc thêm directory vào $PATH sẽ giúp bạn có thể thực thi một câu lệnh dễ dàng mà không cần phải gọi chính xác nơi chứa câu lệnh đó. 
+Để kiểm tra những directories nào được lưu trữ trong $PATH, chúng ta sẽ sử dụng câu lệnh sau:
+
+```echo $PATH```
+
+Mỗi directory được chứa bên trong của $PATH sẽ được cách nhau bởi dấu “:”. Khi bạn thực thi một câu lệnh nào đó, hệ thống Linux sẽ tìm câu lệnh cần chạy trong những directories trong $PATH theo thứ tự từ trái sang phải. 
+Nếu bạn có quyền sử dụng câu lệnh export, bạn có thể thêm directory vào bên trong $PATH. Directory được thêm vào sẽ xuất hiện ở vị trí đầu tiên bên trái. Để thêm directory vào $PATH ta dùng câu lệnh sau:
+
+```export PATH=<tên-directory>:$PATH```
+
+Điều này dẫn đến một rủi ro an ninh hệ thống. Ví dụ bạn thực thi câu lệnh ls với sudo, hacker biết được điều đó nên tạo một file mã độc giả ở với tên ls và chứa bên trong directory /tmp. Như vậy khi hệ thống tìm thấy file ls bên trong directory /tmp, nó sẽ chạy file đó và vô tình làm lây lan mã độc trong hệ thống hoặc cho phép hacker leo thang đặc quyền thành công. 
+##  Quản lý phần mềm
+Các hệ điều hành Linux hiện nay sử dụng một phần mềm gọi là package manager để quản lý những phần mềm được cài vào hệ thống Linux. Cụ thể, package manager sẽ có nhiệm vụ cài đặt, nâng cấp, cấu hình và xóa các phần mềm đã được cài đặt trước đó vào hệ thống Linux. 
+
+Các phần mềm cho các hệ điều hành Linux hiện nay sẽ được đóng gói thành các packages nhằm mục đích dễ phân phối và lưu trữ. Mỗi package sẽ bao gồm: 
+
+*File thực thi (binary)
+*Các thông tin liên quan đến phần mềm (metadata). Ví dụ như: tên phần mềm, mô tả phần mềm, version.
+*Danh sách những phần mềm hoặc thư viện hỗ trợ cần thiết cho hoạt động của phần mềm (dependencies)
+
+Các hệ điều hành Linux khác nhau đã tạo nên các định dạng package (package format) khác nhau. Ví dụ như:
+
+* .deb: Dành cho các hệ điều hành Linux Debian như: Kali Linux, Ubuntu, Parrot OS, Mint, v.v.
+* .rpm: Dành cho các hệ điều hành Linux của nhà Red Hat như: Red Hat, CentOS, Fedora, v.v.
+
+Mỗi hệ điều hành Linux đều sẽ có một danh sách chứa những software repositories. Bạn có thể hiểu một cách đơn giản software repositories như là những nơi bạn có thể tải phần mềm online về máy của mình. Trên Kali Linux và Ubuntu, danh sách chứa software repositories có path là /etc/apt/sources.list.
+
+Ở trên các hệ điều hành Linux Debian, người dùng được cung cấp nhiều lựa chọn để quản lý các packages. Ví dụ chúng ta có:
+
+* dpkg: Là một ứng dụng được dùng để quản lý, cài đặt, và xóa bỏ phần mềm ra khỏi hệ thống Linux. Điểm hạn chế của dpkg đó là nó không cài dependencies đi kèm với phần mềm, dẫn đến phần mềm bị lỗi và không thể hoạt động được.
+    * Để cài đặt phần mềm ta dùng lệnh: dpkg -i <tên-phần-mềm>
+    * Để xóa phần mềm ta dùng lệnh: dpkg –remove <tên-phần-mềm>
+    * Để liệt kê phần mềm đã cài ta dùng lệnh: dpkg -l
+      
+* apt hoặc apt-get: Lệnh apt hoặc apt-get vượt trội hơn dpkg ở chỗ, nó không chỉ cài đặt package mà còn cả những dependencies mà phần mềm cần để chạy ổn định. Thực tế, khi người dùng sử dụng apt hoặc apt-get để cài đặt một package, nó sẽ sử dụng dpkg để cài đặt phần mềm và apt hoặc apt-get sẽ lo phần dependencies. Đây cũng là câu lệnh được dùng phổ biến nhất để quản lý packages trên các hệ điều hành Linux Debian.
+    * Để cài đặt phần mềm ta dùng lệnh: apt install <tên-phần-mềm>
+    * Để xóa phần mềm ta dùng lệnh: apt remove <tên-phần mềm>
+    * Để xóa toàn bộ những packages được dùng làm dependency của phần mềm cần xóa ta dùng lệnh: apt autoremove <tên-phần-mềm>
+    * Để xóa tất cả những gì liên quan đến phần mềm cần xóa ta dùng lệnh: apt purge <tên-phần-mềm>
+    * Để liệt kê những packages đã cài đặt ta dùng lệnh ta dùng lệnh: apt list
+### Sự khác biệt giữa apt và apt-get
+apt-get từng được sử dụng rất phổ biến trong quá khứ, tuy nhiên ở các phiên bản mới của các hệ điều hành Linux Debian, người dùng được đề nghị nên sử dụng apt thay vì apt-get vì sự thân thiện, tiện lợi và những cải tiến về mặt thiết kế so với apt-get.
+
+### Cập nhật và nâng cấp các packages trong hệ thống Linux
+```sudo apt update```
+
+Câu lệnh apt update sẽ tìm và cập nhật phiên bản mới nhất của của các packages trong list /etc/apt/sources.list.
+
+```sudo apt upgrade```
+
+Câu lệnh apt upgrade sẽ dựa vào list /etc/apt/sources.list đã được cập nhật mà cài đặt các phiên bản mới nhất cho các phần mềm bên trong hệ thống Linux. 
+
+```sudo apt dist-upgrade```
+
+Câu lệnh dist-upgrade, bên cạnh thực hiện chức năng của câu lệnh upgrade, nó còn kiêm luôn cả việc cập nhật phiên bản mới nhất cho cả những dependencies của các phần mềm được cập nhật nữa. Hoặc nếu có những dependencies xung đột với nhau câu lệnh dist-upgrade sẽ ra tay xóa bỏ những dependencies gây xung đột này. 
+
+### Quản lý tác vụ
+#### Lệnh ps
+Lệnh ps có được sử dụng để hiện thị các tác vụ hiện đang chạy trong hệ thống. Đặc điểm của câu lệnh ps đó là nó không hiển thị thông tin của tác vụ theo thời gian thực mà chỉ xuất ra thông tin của tất cả processes đang có trong hệ thống ngay tại thời điểm câu lệnh ps được thực thi. Cú pháp của câu lệnh ps như sau:
+
+```ps <tùy-chọn-flag>```
+
+Khi sử dụng lệnh ps không kèm flag, bạn lệnh ps sẽ chỉ in ra những thông tin về process đang chạy câu lệnh ps và shell mà câu lệnh ps đang chạy. 
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/ba1278c2-6dca-4857-b4fc-4b5c9f234775)
+
+Trong đó:
+* PID (Process ID): Số định danh của process trong hệ thống. Mỗi process sẽ mang một PID và con số này là độc nhất. Nghĩa là sẽ không bao giờ cùng một lúc có 2 processes có cùng
+* TTY (TeleTYpewriter): Tên của thiết bị đầu cuối thực thi câu lệnh
+* TIME: Thời gian CPU cần để xử lý process trên tính theo phút và giây
+* CMD: Tên của câu lệnh đã bắt đầu process
+
+Để in ra toàn bộ process đang chạy trong hệ thống chúng ta sẽ dùng câu lệnh sau:
+
+```ps -e```
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/4a303f85-fc6d-4e18-a3c0-460603c633b4)
+
+Để xuất ra tác vụ kèm theo PID của parent tác vụ và UID đang chạy tác vụ ta sử dụng câu lệnh sau
+
+```ps -ef```
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/077670a5-c611-4e5f-a055-55f2227171fd)
+
+Trong đó:
+* UID: Tên user chạy tác vụ
+* PPID (Parent PID): ID của parent của tác vụ
+* C: Số chu kỳ của CPU được sử dụng bởi mỗi tác vụ
+* STIME: Thời điểm process bắt đầu
+#### Lệnh top
+Câu lệnh top cũng là một công cụ được sử dụng để quản lý các tác vụ trên hệ điều hành Linux. Khác với câu lệnh ps, câu lệnh top sẽ cập nhật thông tin tác vụ đang chạy trên hệ thống theo thời gian thực cho đến khi nào bạn dừng lệnh mới thôi. Cú pháp của câu lệnh top như sau: 
+
+```top <tùy-chọn-flag>```
+
+Với top, bạn có thể tùy chọn những thông tin bạn muốn hiện ra. Ví dụ khi lệnh top đang chạy, bạn nhấn phím “f”. Lúc này thông tin của tất cả các cột sẽ hiện ra. Các tên cột có dấu “*” phía trước là những thông tin đang được hiển thị. 
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/5924c3e3-93c8-4cdb-b740-9ad0373a88eb)
+
+
+Để di chuyển lên hoặc xuống các bạn sẽ dùng 2 phím mũi tên lên hoặc xuống. Để chọn hoặc bỏ chọn hiện thị một cột các bạn nhấn phím space (phím khoản trống). Và để thoát ra, các bạn dùng phím “q” hoặc “ECS”.
+
+### Tấn công leo thang đặc quyền (priv escalation) server Learn Linux 
+Thông thường, một số cách phổ biến nhất để leo thang đặc quyền đó là:
+
+1. Kernel exploit: Lợi dụng một lỗ hổng trong kernel hoặc hệ điều hành để leo thang đặc quyền
+2. SUID: Lợi dụng SUID để leo thang đặc quyền như ta đã thực hành với vim và nano ở bài 11
+3. Cron tasks: Lợi dụng những tác vụ được thiết lập chạy tự động bởi root để leo thang đặc quyền
+4. Sudo rights: Lợi dụng những công cụ được cấp phép sử dụng để leo thang đặc quyền
+5. Tìm mật khẩu của account root được chứa bên trong các file quan trọng như web database, log file, v.v
+
+Directory /var/log là nơi chứa log (nhật ký) từ hệ điều hành, những dịch vụ và những ứng dụng đang chạy trong hệ thống.
+
+End.
+
+
+
 
 
 
