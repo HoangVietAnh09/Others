@@ -241,3 +241,53 @@ Trong đó
 * f: Dạng file bình thường, không phải directory hay các file đặc biệt ví dụ như symbolic link, v.v.
 *2>/dev/null: Chuyển tất cả những cảnh báo lỗi hoặc output lỗi vào /dev/null
 
+# Linux Căn Bản – Bài 10: Lấy mật khẩu shiba4, lệnh sudo, adduser, addgroup, usermod, userdel, và groupdel
+## Câu lệnh sudo (Task 35)
+Sudo là viết tắt của từ Super User Do. Khi bạn sử dụng câu lệnh này đi kèm với một câu lệnh khác
+
+ khi sử dụng lệnh sudo, nó sẽ tạm thời cung cấp cho bạn phân quyền ở cấp cao hơn account của bạn để thực thi câu lệnh mà bạn mong muốn mà không cần phải đăng nhập vào account ở cấp cao hơn đó. Trong nhiều trường hợp, bạn sẽ phải nhập mật khẩu account hiện tại khi sử dụng lệnh sudo. 
+
+ ## Tính ứng dụng của lệnh sudo và sự khác biệt với câu lệnh su
+ lệnh su cho phép bạn đăng nhập vào một account người dùng khác thông qua giao diện dòng lệnh. 
+
+ Lệnh sudo có nhiều ứng dụng hơn so với lệnh su. Chúng ta có thể sử dụng câu lệnh sau để đăng nhập account root (Với các hệ điều hành Linux hiện nay, bạn không còn có thể dùng lệnh su để đăng nhập root được nữa)
+
+ ```sudo -l```
+
+ Sudo -l sẽ cho bạn biết được những câu lệnh bạn được phép sử dụng, hoặc bị cấm sử dụng. Thông tin này rất hữu ích trong việc tìm ra giải pháp cho priv escaltion.
+
+ ## Tạo account người dùng, tạo group và quản lý group
+ Vì chỉ có duy nhất root mới có quyền tạo account người dùng hay tạo group, nên chúng ta sẽ thực tập trên máy Kali Linux của chúng ta nhé. Các bạn vào account root trên hệ thống Kali Linux bằng command sau:
+### Lệnh adduser 
+Lệnh adduser được sử dụng để tạo một account người dùng mới. Cú pháp của câu lệnh adduser như sau: 
+
+```adduser <tên-account> ```
+### Lệnh addgroup
+Lệnh addgroup được dùng để tạo một group bao gồm nhiều account người dùng chia sẻ chung phân quyền chủ group. Cú pháp câu lệnh như sau:
+
+```addgroup <tên-group-cần-tạo>```
+### Lệnh usermod 
+Chúng ta làm việc đó bằng cách sử dụng câu lệnh usermod với cú pháp như sau:
+
+```usermod -a -G <tên-group> <tên-user-account-cần-add-vào-group>```
+### Xóa account người dùng và xóa nhóm 
+Để xóa một account người dùng, bạn dùng lệnh userdel. Cú pháp như sau:
+
+```userdel <tên-account-cần-xóa>```
+
+Để xóa một group, chúng ta sẽ sử dụng lệnh groupdel. Cú pháp như sau: 
+
+groupdel <tên-group-cần-xóa>
+# Linux Căn Bản – Bài 11: Tấn công leo thang đặc quyền với Nano và Vim và thực hành tạo file Bash script đơn giản
+## Nano
+Trình text editor Nano cho phép người sử dụng có thể thực thi câu lệnh bên trong Nano. Nếu Nano được cấp SUID, nó có thể bị hacker lợi dụng cho mục đích priv escalation. 
+## Vim
+Do Vim cũng cho phép thực thi lệnh bên trong nên cũng tương tự như Nano, Vim có thể bị lợi dụng cho mục đích leo thang đặc quyền nếu nó được set SUID. 
+## Bash scripting cơ bản
+
+# Linux Căn Bản – Bài 12: Quản lý phần mềm, tác vụ trên hệ thống Linux và tấn công leo thang đặc quyền đối với server Learn Linux
+
+
+
+
+
