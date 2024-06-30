@@ -19,6 +19,7 @@ Ngoài được thể hiện dưới dạng ký tự, các quyền này còn đ�
 * 1 = x
 * 2 = w
 * 4 = r
+  
 Như bạn đã biết, trong hệ thống số nhị phân số 1 được biểu trưng cho có và 0 biểu trưng cho không. 
 Như vậy, để thiết lập quyền x, bit nhị phân chỗ x phải được bật lên 1. 
 Cứ quyền nào được thiết lập thì bit ở chỗ đó sẽ được bật lên 1, những bit không được thiết lập sẽ là 0. 
