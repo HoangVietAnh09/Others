@@ -197,15 +197,15 @@ Soft link vẫn có thể hoạt động khi file nó trỏ tới và link nằm
 Vì bản thân soft link chỉ là một liên kết đến file mà nó trỏ tới, nên khi truy cập nội dung file bằng soft link và thay đổi nội dung bên trong, bạn đang thay đổi nội dung gốc của file mà soft link trỏ tới
 Khi bạn kiểm tra các thông tin của một soft link bằng lệnh ls -l, bạn sẽ thấy chữ “l” ở đầu báo hiệu đây là một link, ngoài ra ở phía cuối còn có tên file mà nó trỏ tới.
 ## Câu lệnh Find 
-Find là một câu lệnh mạnh mẽ dùng để tìm kiếm file dữ liệu trong Linux. Cú pháp cơ bản của câu lệnh find như sau:
-```find <flag>(optional) <tên-directory-nơi-bắt-đầu-tìm-kiếm> <nội-dung-cần-tìm>```
-Để tìm tất cả các file có phân quyền SUID chúng ta sẽ dùng câu lệnh sau
-```find / -perm -u=s -type f 2>/dev/null```
+Find là một câu lệnh mạnh mẽ dùng để tìm kiếm file dữ liệu trong Linux. Cú pháp cơ bản của câu lệnh find như sau:\n
+```find <flag>(optional) <tên-directory-nơi-bắt-đầu-tìm-kiếm> <nội-dung-cần-tìm>```\n
+Để tìm tất cả các file có phân quyền SUID chúng ta sẽ dùng câu lệnh sau\n
+```find / -perm -u=s -type f 2>/dev/null```\n
 Trong đó
-    * / : Bắt đầu tìm từ root directory là file có vị trí cao nhất trong sơ đồ cấu trúc file của hệ thống Linux
-    * -perm: Tìm những file thỏa mãn phân quyền theo sau
-    * -u=s: Tìm những file binary thuộc sở hữu của root nhưng có phân quyền SUID
-    * -type: Dạng file cần tìm *
-    * f: Dạng file bình thường, không phải directory hay các file đặc biệt ví dụ như symbolic link, v.v.
-    * 2>/dev/null: Chuyển tất cả những cảnh báo lỗi hoặc output lỗi vào /dev/null
+    * / : Bắt đầu tìm từ root directory là file có vị trí cao nhất trong sơ đồ cấu trúc file của hệ thống Linux\n
+    * -perm: Tìm những file thỏa mãn phân quyền theo sau\n
+    * -u=s: Tìm những file binary thuộc sở hữu của root nhưng có phân quyền SUID\n
+    * -type: Dạng file cần tìm \n
+    * f: Dạng file bình thường, không phải directory hay các file đặc biệt ví dụ như symbolic link, v.v.\n
+    * 2>/dev/null: Chuyển tất cả những cảnh báo lỗi hoặc output lỗi vào /dev/null\n
 
