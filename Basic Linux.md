@@ -98,8 +98,10 @@ Tất cả người dùng khác trong hệ thống cũng sẽ chỉ có quyền 
 Tiếp theo chúng ta hãy chú ý đến dòng “[1]root [2]root”.
 
 * [1]root: Tên của người sở hữu file /etc/group
-* [2]root: Tên group của người sở hữu file /etc/group 
+* [2]root: Tên group của người sở hữu file /etc/group
+  
 VD: ```-rw-rw-r-- 1 shiba3 shiba3 11 Nov 19 05:57 sample.txt```
+
     * Chủ sở hữu của file sample.txt là account shiba3
     * Shiba3 có quyền đọc và chỉnh sửa nội dung file cũng như được phép đọc nội dung của file
     * Các thành viên thuộc group shiba3 cũng có quyền đọc và thay đổi nội dung file sample.txt
@@ -118,6 +120,7 @@ Trong đó:
 ### SUID và SGID
 ```ls -lrt /usr/bin/python```
 ```-rwsrw-r-x   1 root     sys        31396 Jan 20  2014 /usr/bin/python```
+
 Phân quyền “s” trong phần phân quyền của owner được gọi là SUID (Set User Id), nó cho phép khi file được thực thi bởi một user account nào đó, nó sẽ được thực thi dưới phân quyền của người chủ của file. 
 Như ví dụ trong dòng lệnh bên trên, nếu bất kỳ ai chạy câu lệnh python, câu lệnh đó sẽ được chạy với phân quyền của root. Điều này có thể bị lạm dụng cho mục đích nâng cấp đặc quyền (Privilege Escalation).
 Để set SUID các bạn sẽ thêm giá trị “4” vào đầu phần phân quyền trong câu lệnh chmod
@@ -129,6 +132,7 @@ thì khi ứng dụng này được chạy, nó sẽ chạy với phân quyền 
 #### Khi SGID được set cho một directory, thì tất cả mọi file và directory được tạo ra bên trong directory đó đều thuộc quyền sở hữu của group sở hữu directory đó
 ### Đổi quyền sở hữu 
 ```chown <tên-chủ-mới>:<tên-group-mới> <tên-file>```
+
 Tuy nhiên, chúng ta sẽ chỉ có thể chuyển quyền sở hữu của một file từ mình sang file khác khi và chỉ khi phân quyền của mình lớn hơn phân quyền của account được chuyển quyền sở hữu. 
 Vì lẽ đó, chuyển quyền sở hữu khi bạn đang nắm account root là thích hợp nhất. 
 # Linux Căn Bản – Bài 8: Cấu trúc của hệ thống file trong Linux và các lệnh cd, mkdir, cp, mv, và rm
