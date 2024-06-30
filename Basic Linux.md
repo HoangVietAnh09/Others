@@ -184,6 +184,7 @@ Bên trong directory /usr có các directories con như:
 * /usr/bin: Chứa các phần mềm dành cho người dùng như nmap, gobuster, v.v.
 * /usr/sbin: Chứa các phần mềm dành để quản trị hệ thống
 * /usr/share: Nơi chứa những file hỗ trợ dành cho các phần mềm bên trong /usr
+  
 ***Các bạn cần ghi nhớ directory /usr/share/wordlists trên Kali Linux, đây là directory chứa các từ điển dùng để tấn công dictionary attack, tìm file ẩn trên website, v.v.*** 
 ### Directory /var 
 Var là viết tắt của variables. Directory /var là nơi chứa những biến như log, mail, cache, v.v. mà giá trị được chứa bên trong của nó sẽ thay đổi liên tục trong suốt quá trình vận hành của hệ thống. 
