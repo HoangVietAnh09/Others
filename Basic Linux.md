@@ -10,7 +10,7 @@ Nhưng do test1234 không thể được sử dụng cho các tác vụ ngoài s
 Để khắc phục tình trạng trên, bạn cần sử dụng cách 2 để tạo variable
 ### Phân quyền trong hệ thống Linux và câu lệnh chmod
 Trong Linux, có 4 quyền chính:
-    * – (deny): Không được cấp quyền
+* – (deny): Không được cấp quyền
     * r (read): Cho phép bạn truy cập và đọc file dữ liệu
     * w (write): Cho phép bạn chỉnh sửa, thay đổi nội dung, tạo mới hoặc xóa bỏ nội dung đang tồn tại trong file dữ liệu, cũng như bạn sẽ có quyền đổi tên dữ liệu được chứa bên trong file hiện tại
     * x (execute): Cho phép bạn thực thi, chạy file dữ liệu, nếu file đó là một file thực thi
