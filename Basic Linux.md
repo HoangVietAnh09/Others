@@ -175,11 +175,12 @@ Usr là viết tắt của user. Đây là cũng là một nơi chứa những p
 * /sbin: Chứa các phần mềm câu lệnh được sử dụng bởi system admin. Ví dụ như: init, ifconfig, fdisk, v.v.
 * /opt: Chứa những phần mềm bên thứ 3. Ví dụ như : office, broswer, v.v.
 * /usr/…: Chứa những phần mềm dành riêng cho distro Linux. Ví dụ như với Kali Linux, các công cụ như nmap, gobuster, wfuzz, v.v. dành cho việc pentest đều được tập trung bên trong những directories con của directory /usr
+  
 Bên trong directory /usr có các directories con như:
-    /usr/bin: Chứa các phần mềm dành cho người dùng như nmap, gobuster, v.v.
-    /usr/sbin: Chứa các phần mềm dành để quản trị hệ thống
-    /usr/share: Nơi chứa những file hỗ trợ dành cho các phần mềm bên trong /usr
-        Các bạn cần ghi nhớ directory /usr/share/wordlists trên Kali Linux, đây là directory chứa các từ điển dùng để tấn công dictionary attack, tìm file ẩn trên website, v.v. 
+* /usr/bin: Chứa các phần mềm dành cho người dùng như nmap, gobuster, v.v.
+* /usr/sbin: Chứa các phần mềm dành để quản trị hệ thống
+* /usr/share: Nơi chứa những file hỗ trợ dành cho các phần mềm bên trong /usr
+***Các bạn cần ghi nhớ directory /usr/share/wordlists trên Kali Linux, đây là directory chứa các từ điển dùng để tấn công dictionary attack, tìm file ẩn trên website, v.v.*** 
 ### Directory /var 
 Var là viết tắt của variables. Directory /var là nơi chứa những biến như log, mail, cache, v.v. mà giá trị được chứa bên trong của nó sẽ thay đổi liên tục trong suốt quá trình vận hành của hệ thống. 
 # Linux Căn Bản – Bài 9: Câu lệnh ln, find và grep
@@ -206,6 +207,7 @@ Hard link chỉ có thể hoạt động trong cùng Linux file system. Ví dụ
 Với hard link, điều bạn đang làm là tạo thêm kết nối trỏ tới một file nào đó chứ không phải nhân dữ liệu đã có lên n lần như với copy. Và mỗi khi bạn truy cập file thông qua hard link để thay đổi nội dung file, bạn đang thay đổi nội dung gốc của file. 
 Đồng nghĩa với việc dù bạn truy cập file bằng hard link nào thì nội dung hiện ra vẫn sẽ là nội dung mà bạn đã thay đổi.
 Ứng dụng lớn nhất của hard link là để backup dữ liệu nhưng không cần phải copy dữ liệu gây lãng phí tài nguyên ổ cứng.
+
 ``` Nói tóm lại là cái này dùng đê backup địa chỉ của dữ liệu (inode) nhưng không gấy tốn bộ nhớ kiểu```
 ## Soft link
 Soft link hay còn gọi là Symbolic link. Chức năng của nó tương tự như shortcut trên Windows. 
