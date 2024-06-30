@@ -1,9 +1,13 @@
 # Linux Căn Bản – Bài 6: Phân quyền trong hệ thống Linux
 ### Phân biệt 2 cách tạo variable
 Cách 1: <tên-biến>=<giá-trị>
+
 Cách 2: export <tên-biến>=<giá-trị>
+
 Với cách 1: Variable bạn tạo ra chỉ có thể được sử dụng trong shell và không thể được sử dụng cho các tác vụ khác.
+
 Với cách 2: Variable của bạn có thể được sử dụng cho bất kỳ tác vụ nào cần đến nó.
+
 Khi tạo variable bằng cách 1, variable của bạn sẽ chỉ có thể được sử dụng trong shell,
 do đó khi chạy shiba2, shiba2 sẽ cần variable test1234 để chạy tác vụ và xuất ra password của shiba3.
 Nhưng do test1234 không thể được sử dụng cho các tác vụ ngoài shell, dẫn đến việc shiba2 báo lỗi như bạn đã thấy. 
