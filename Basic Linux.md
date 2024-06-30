@@ -51,37 +51,45 @@ Những account này không được tạo ra dành cho người dùng bình th�
 Để truy cập vào tài nguyên của hệ thống, các phần mềm hoặc tác vụ sẽ sử dụng những account này để truy cập vào hệ thống. 
 ### File /etc/shadow 
 File /etc/shadow chính là nơi chứa mật khẩu đã bị mã hóa của tất cả account trong hệ thống Linux.
+
 ```[1]admin:[2]$6$sTgBhfj0$pkzz/JpVTl8ZAmk./d4SDarRyWsGSZHguljywUHQMP4DWo8/TgNzL5rMpejqNWuyxtFlISxdyIqPmpsIsyi.i1:[3]16088:[4]0:[5]99999:[6]7:[7]:[8]:[9]```
+
 Tương tự như trong /etc/passwd, mỗi dòng trong file /etc/shadow sẽ là một account đi kèm theo các thông tin được cách nhau bởi dấu “:”:
-    * [1] admin: Tên đăng nhập, tương ứng tên trong file /etc/passwd
-    * [2] $6$sTgBhfj0$ …: Mật khẩu đã được mã hóa
-    * [3] 16088: Ngày cuối cùng mật khẩu được thay đổi, được tính theo ngày 1/1/1970 là ngày hệ thống Unix ra đời. *
-    * [4]0: Số ngày tối thiểu phải chờ trước khi mật khẩu được thay đổi
-    * [5]99999: Số ngày trước khi mật khẩu cần phải thay đổi
-    * [6]7: Số ngày sau khi mật khẩu hết hạn và người dùng nhận được cảnh báo mật khẩu sắp hết hạn
-    * [7]: Số ngày sau khi mật khẩu hết hạn và account bị blocked
-    * [8]: Số ngày (được tính theo ngày 1/1/1970) account đã bị khóa
-    * [9]: Sẽ được dùng trong tương lai 
+
+* [1] admin: Tên đăng nhập, tương ứng tên trong file /etc/passwd
+* [2] $6$sTgBhfj0$ …: Mật khẩu đã được mã hóa
+* [3] 16088: Ngày cuối cùng mật khẩu được thay đổi, được tính theo ngày 1/1/1970 là ngày hệ thống Unix ra đời. *
+* [4]0: Số ngày tối thiểu phải chờ trước khi mật khẩu được thay đổi
+* [5]99999: Số ngày trước khi mật khẩu cần phải thay đổi
+* [6]7: Số ngày sau khi mật khẩu hết hạn và người dùng nhận được cảnh báo mật khẩu sắp hết hạn
+* [7]: Số ngày sau khi mật khẩu hết hạn và account bị blocked
+* [8]: Số ngày (được tính theo ngày 1/1/1970) account đã bị khóa
+* [9]: Sẽ được dùng trong tương lai 
 ### Group người dùng
 Phân Quyền Group cho phép nhiều account người dùng khác nhau có thể có cùng phân quyền vào một dữ liệu ví dụ như files, directories, v.v nào đó.
 Mỗi group sẽ có 1 GID (Group ID) tương tự như UID. GID là một giá trị duy nhất trong toàn hệ thống. Mỗi group cũng sẽ có một tên group được gán với GID. 
 ### File /etc/group 
 Thông tin của group sẽ được lưu giữ trong file có tên là /etc/group.
+
 Cũng tương tự như với file /etc/passwd và /etc/shadow, mỗi dòng là một group cùng các thông tin liên quan đến group đó được cách nhau bởi dấu “:”. Ví dụ:
+
 ```[1]shiba2:[2]x:[3]1002:[4]ABC, XYZ, shiba2```
-    * [1] shiba2: Tên group
-    * [2] x: Group password đã được ẩn đi
-    * [3] 1002: GID (Group ID)
-    * [4]: ABC, XYZ, shiba2: Tên của những user account là thành viên của group
+
+* [1] shiba2: Tên group
+* [2] x: Group password đã được ẩn đi
+* [3] 1002: GID (Group ID)
+* [4]: ABC, XYZ, shiba2: Tên của những user account là thành viên của group
+* 
 #### Khi nhìn vào file /etc/group, bạn sẽ thấy nhiều group không có thành viên nào . Điều đó không có nghĩa là group đó không có thành viên. 
 #### Khi một user account sử dụng một group như là group mặc định, tên của user account đó sẽ không xuất hiện trong danh sách thành viên của group
 #### Để thêm bớt người dùng hoặc group, bạn tuyệt đối không được chỉnh sửa trực tiếp vào các file /etc/passwd, /etc/shadow hoặc /etc/group
 #### Mỗi group sẽ có 1 group owner, tên group thường sẽ lấy theo tên của user account của group owner. Và phân quyền của group owner sẽ là phân quyền cho tất cả thành viên trong group. 
 #### Group owner sẽ được quyết định bởi người tạo ra group hoặc được chỉ định bởi những người có quyền quản trị group. 
 ### Lí do có 3 cụm phân quyền
-    * Cụm 1: rw-: Phân quyền dành người sở hữu file
-    * Cụm 2: r– : Phân quyền dành cho những người cùng group với người sở hữu file
-    * Cụm 3: r– : Phân quyền dành cho tất cả những người dùng khác trong hệ thống
+
+* Cụm 1: rw-: Phân quyền dành người sở hữu file
+* Cụm 2: r– : Phân quyền dành cho những người cùng group với người sở hữu file
+* Cụm 3: r– : Phân quyền dành cho tất cả những người dùng khác trong hệ thống
 Tóm lại dòng “-rw-r–r–” có nghĩa là, account root sẽ có quyền đọc và thay đổi, chỉnh sửa nội dung của file /etc/group. 
 Những người dùng ở chung group với root account sẽ chỉ có quyền truy cập và đọc nội dung của file /etc/group. 
 Tất cả người dùng khác trong hệ thống cũng sẽ chỉ có quyền truy cập và đọc nội dung mà thôi. 
