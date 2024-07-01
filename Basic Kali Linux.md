@@ -290,6 +290,143 @@ Nmap được tích hợp bên trong Metasploit sẽ được chia làm 2 câu l
 
 * db_nmap: Khi sử dụng db_nmap chức năng hoàn toàn tương tự như Nmap bình thường thôi, tuy nhiên kết quả thu được từ db_nmap sẽ được lưu vào cơ sở dữ liệu PostgreSQL nhằm phục vụ cho việc truy xuất lại dữ liệu về sau.
 * nmap: Câu lệnh Nmap bình thường, kết quả không được lưu vào cơ sở dữ liệu PostgreSQL của Metasploit.
+## Identifying vulnerabilities
+## Exploiting vulnerabilities
+
+# Bài 6: Thực hành tấn công webserver với Metasploit (Phần 2)
+## Upgrade shell lên Meterpreter 
+## Post-exploitation
+Trong pentest, post-exploitation dùng để chỉ các hoạt động cần được tiến hành để thu thập các thông tin quan trọng như:
+
+* Tên hệ điều hành, versions, và Linux Kernel
+* Các phần mềm đang chạy cùng versions của chúng
+* Sudo rights, SUID, SGID
+* Cron jobs
+* V.V
+
+Đây đều là những thông tin rất quan trọng giúp pentester hoặc có thể chiếm quyền quản trị hệ thống cấp cao nhất (quyền root hoặc administrator) hoặc lên các phương án tấn công tiếp theo. 
+### Một số điều cần biết về shell Meterpreter
+Shell Meterpreter và shell điều khiển mục tiêu từ xa là 2 shells khác nhau. Shell Meterpreter cho phép bạn có thể truy cập vào các modules được trang bị cho Meterpreter, và bạn có thể sử dụng những modules này cho mục đích tấn công sâu hơn vào hệ thống. 
+
+Khi dùng chức năng execute của Meterpreter, bạn cần phải dùng kèm 2 flags là -f và -i theo cú pháp sau:
+
+```meterpreter > execute -f <tên-câu-lệnh-cần-thực-thi> -i```
+# Bài 7: Mã hóa căn bản, các phương thức hash cracking phổ biến và cách phòng chống
+## Mã hóa dữ liệu căn bản? 
+Hashing và encoding là 2 hình thức mã hóa dữ liệu đang được sử dụng phổ biến hiện nay.
+### Encoding
+Sự khác biệt giữa encoding và hashing nằm ở chỗ nếu hashing là hình thức mã hóa dữ liệu một chiều và không có cách nào có thể truy ngược lại dữ liệu gốc, thì với encoding, dù không biết từ khóa để giải mật thư, nhưng nếu mật thư được mã hóa không quá khó thì bạn vẫn có thể tìm được dữ liệu gốc sau một hồi thử một số cách phá mật thư phổ biến. 
+### Hashing 
+#### Khái niệm hashing 
+Hashing hay còn gọi là mã băm, nói một cách đơn giản, là một hình thức mã hóa dữ liệu một chiều dùng để bảo vệ dữ liệu gốc (dữ liệu trước khi mã hóa), tránh cho dữ liệu gốc lọt vào tay của những cá nhân hoặc tổ chức không được cấp phép sử dụng dữ liệu đó. 
+
+Để hash một dữ liệu, dữ liệu đó sẽ được chạy qua một thuật toán hash và đầu ra sẽ là một chuỗi ký tự vô nghĩa (thường là ở dạng hexadecimal).
+
+Các thuật toán hash dữ liệu thường cho ra các kết quả có cùng một độ dài (tính theo bytes) bất kể độ dài của giá trị đầu vào là bao nhiêu. 
+
+Một trong những tính năng đặc biệt của hash dữ liệu đó là mã hóa một chiều.
+
+Tất cả các thuật toán được dùng để hash dữ liệu đều phải đảm bảo các yêu cầu cơ bản sau:
+
+* Deterministic: Vào bất cứ thời điểm nào, cùng một dữ liệu đầu vào luôn luôn cho ra cùng một dữ liệu đầu ra.
+* Non-invertible: Việc đảo ngược quy trình hash để tìm được dữ liệu gốc từ dữ liệu được hash là điều gần như bất khả thi.
+* Quick to compute: Thời gian hash nhanh.
+* Use the Avalanche Effect: Chỉ một thay đổi nhỏ giá trị đầu vào sẽ thay đổi tối thiểu 50% giá trị đầu ra.
+* Should avoid or eliminate collisions: Vì chúng ta nhận giá trị đầu vào bất kể độ dài và thường sẽ xuất ra các giá trị có cùng độ dài, nên việc có 2 giá trị khác nhau nhưng lại có cùng kết quả xuất ra là điều tuy hiếm nhưng hoàn toàn có thể xảy ra. Do đó một thuật toán hash tốt phải tránh được điều đó.
+
+***Chúng ta sẽ bàn ngoài lề một tí về cách các trang mạng xác nhận xem bạn có đúng là người dùng sở hữu tài khoản đã đăng ký hay không nhé.***
+
+Để tránh điều đó xảy ra, thay vì lưu mật khẩu của người dùng ở dạng không mã hóa, các công ty như FB sẽ lưu hash của password. Nghĩa là, khi tạo tài khoản, thay vì lưu lại password của bạn, FB sẽ hash password của bạn và lưu lại giá trị hash này vào cơ sở dữ liệu của họ. Khi bạn đăng nhập tài khoản FB, password bạn dùng để đăng nhập cũng sẽ được hash và FB sẽ so sánh giá trị hash mà họ lưu với giá trị hash họ nhận được từ bạn. Nếu hai giá trị này trùng nhau, nghĩa là bạn đã cung cấp mật khẩu đúng và sẽ được cấp quyền truy cập vào hệ thống. 
+## Các hình thức hash cracking phổ biến 
+***Brute force attacks:***
+
+Hackers hoặc pentesters sử dụng những phần mềm chuyên dụng và dựa vào bảng chữ cái và bảng chữ số (từ 1 đến 10) để tạo ra vô hạn các kết hợp. Các kết hợp này sẽ được gửi đến server mục tiêu để hash và so sánh với dữ liệu hash đã được lưu trong cơ sở dữ liệu của mục tiêu. Quá trình này diễn ra cho đến khi tìm được password thật của account. Cách này cực kỳ mất thời gian. Và để tối ưu hóa, người ta thường sử dụng nhiều GPU siêu mạnh cùng một lúc để giảm thời gian bruteforce. 
+
+***Dictionary attacks:***
+
+Hackers hoặc pentesters sẽ có một danh sách những username và password hay được sử dụng nhất. Hoặc một từ điển của ngôn ngữ mà đối tượng sử dụng. Sau đó, họ sử dụng những phần mềm chuyên dụng để thử mọi kết quả username và password có trong danh sách hoặc từ điển đó cho đến khi nào tìm ra được username và password mới thôi. 
+
+Do đó để tối ưu hóa, hackers hoặc pentesters thường nghiên cứu mục tiêu rất kỹ và càng nhiều thông tin được công bố trên mạng xã hội ví dụ như:
+
+* Tên thật và ngày tháng năm sinh
+* Nguyên quán
+* Sở thích
+* Tên người yêu, tên thú cưng, tên bố mẹ
+* Những sự kiện quan trọng
+
+***Rainbow table attacks:***
+
+Rainbow table là một cơ sở dữ liệu tập hợp các kết hợp username và password đã được hash ở nhiều thuật toán hash khác nhau. Vì lẽ đó kích thước của một rainbow table thường rất lớn, có thể lên tới hàng trăm GB. 
+
+Để sử dụng được rainbow table, bạn cần phải bằng cách nào đó, có được danh sách chứa password hash của tất cả người dùng được chứa trong cơ sở dữ liệu của mục tiêu. Sau đó bạn sẽ sử dụng các phần mềm chuyên dụng để so sánh các kết quả hash từ danh sách thu được với cơ sở dữ liệu của rainbow table cho đến khi tìm ra được hash có cùng giá trị. 
+
+Lúc này, chúng ta có thể dễ dàng dựa vào rainbow table để tìm ra được password hoặc chuỗi ký tự cho ra cùng giá trị hash (trong trường hợp hash collision xảy ra). Vì dữ liệu được dùng để xác thực người dùng là dữ liệu hash, nên dù khác mật khẩu nhưng lại xảy ra hash collision dẫn đến hai giá trị hash giống nhau, chúng ta vẫn có thể đăng nhập vào tài khoản mục tiêu được như bình thường. 
+## Cách phòng chống hash cracking
+Để chống lại brute force attack và dictionary attack, các hệ thống hiện đại ngày nay sẽ tự động khóa tài khoản nếu người dùng nhập sai mật khẩu quá số lần quy định.
+
+Để chống lại rainbow table attacks, người ta thường hay dùng salt và pepper. Salt và pepper là 2 chuỗi giá trị được hệ thống tạo ra ngẫu nhiên để thêm vào password trước khi hash nhằm tăng cường sức mạnh cho password. 
+
+### Ứng dụng thực tế của salt và pepper như sau:
+**Với salt:**
+
+Khi lưu password vào cơ sở dữ liệu, sẽ có trường hợp 2 hoặc nhiều hơn 2 người dùng sử dụng password giống nhau. Điều này dẫn đến việc nếu hacker có được danh sách password hash, và tìm ra được password trước khi hash của 1 trong số những người có password giống nhau này, thì khả năng tất cả những người này bị mất tài khoản là điều chắc chắn.
+
+Salt được dùng để chống lại rainbow table attacks. Vì giá trị của chuỗi salt chỉ duy nhất có hệ thống tạo ra nó biết được và được tạo ra theo quy tắc kết hợp các ký tự và chữ số một cách ngẫu nhiên, nên khả năng rất cao là rainbow table sẽ không có giá trị hash nào là kết quả của password + salt cả.
+
+**Với pepper:** 
+Pepper (hay còn được gọi là secret salt) có chức năng tương tự như salt, tuy nhiên sẽ có vài điểm khác biệt như sau: 
+Salt:
+
+* Đảm bảo trong cùng một ứng dụng, hai password giống nhau sẽ có hash khác nhau
+* Giá trị của salt nằm bên trong hash và được lưu trong cơ sỡ dữ liệu
+
+Pepper:
+
+* Đảm bảo hai ứng dụng trong cùng một hệ thống dù có cùng password và salt nhưng giá trị hash sẽ khác nhau. Ví dụ: một công ty có 1 web nội bộ và 1 web công cộng, mỗi web sử dụng một cơ sở dữ liệu riêng để lưu thông tin người dùng. Pepper sẽ đảm bảo dù người dùng dùng chung password cho cả hai web, sau khi đã thêm cùng một salt, giá trị hash sẽ khác nhau.
+* Giá trị của pepper nằm bên trong hash và không được lưu trong cơ sở dữ liệu
+
+  ```Tóm lại là salt sẽ thêm kí tự vào pw rồi mới hash còn peper sẽ hash pw trước rồi thêm kí tự```
+# Bài 8: Hash cracking với Hashcat, John The Ripper và CrackStation
+## Hashcat 
+Hashcat là phần mềm crack hash/khôi phục mật khẩu từ hash nhanh nhất và tiên tiến nhất hiện nay trên giao diện dòng lệnh. Hashcat cung cấp cho người sử dụng 5 chế độ tấn công/khôi phục mật khẩu khác nhau áp dụng cho hơn 300 thuật toán hash khác nhau.
+
+Hashcat có thể sử dụng GPU, CPU và các phần cứng tăng tốc độ tính toán khác trên hệ thống máy tính để tăng tốc độ phá password hash. Tuy nhiên, vì phần lớn chúng ta sử dụng máy ảo Kali Linux trên Virtual Box, nên chúng ta sẽ mất đi sự hỗ trợ đắc lực của GPU (card đồ họa)
+
+Nói tóm lại, việc crack hash là một việc rất tốn thời gian vì nó phụ thuộc vào các yếu tố như:
+
+* Thuật toán hash
+* Sức mạnh phần cứng của hệ thống dùng để crack
+* Password gốc có được salt và pepper hay không?
+* Password gốc có phức tạp hay không?
+
+### Một số công cụ xác định thuật toán hash 
+#### Công cụ Hash Identifier trên Kali Linux
+```hash-identifier```
+
+Chúng ta thấy Hash Identifier bên cạnh việc xác định và xuất ra tên những thuật toán hash mà nó nghĩ rằng nhiều khả năng đã được dùng để tạo ra hash đầu vào (Possible Hashs), nó còn liệt kê ra các kết quả mà nó nghi ngờ nhưng không chắc chắn (Least Possible Hashs).
+
+Và chúng ta có thể thấy, SHA-256 nằm trong nhóm Possible Hashs. Như vậy, Hash Identifier đã xác định đúng thuật toán hash.
+#### Một số công cụ xác định thuật toán hash online 
+Minh hay dung tunnelsup
+### Cách sử dụng Hashcat 
+Vì Hashcat không có chức năng tự xác định thuật toán hash như mình đã nói lúc đầu, nên sau khi xác định được thuật toán hash bằng các công cụ mình đã nói chúng ta sẽ phải chỉ cho Hashcat thuật toán được dùng của hash đầu vào là gì. Trên Hashcat, thông tin này được gọi là hash modes.
+
+Hash cat hỗ trợ 4 hình thức crack hash:
+
+* Dictionary (-a 0): Bạn sẽ cung cấp cho Hashcat một danh sách (có thể là tập hợp những passwords hay được dùng nhất). Hashcat sẽ sử dụng lần lượt từng giá trị trong danh sách này để hash nó với thuật toán đã chỉ định và so sánh với hash đầu vào, nếu kết quả sai, Hashcat sẽ thử giá trị tiếp theo trong danh sách được cung cấp, nếu đúng thì Hashcat trả lại kết quả đã tạo nên giá trị hash trùng khớp với giá trị hash đầu vào.
+* Combination (-a 1): Tương tự như Dictionary attack ở trên, tuy nhiên khi dùng Combination các bạn sẽ phải cung cấp 2 danh sách chứ không phải chỉ 1 danh sách như Dictionary attack. Hình thức tấn công này được sử dụng khi bạn muốn tìm username và password của người dùng. Lúc này bạn sẽ cần 1 danh sách những usernames hay được dùng nhất và 1 danh sách những passwords hay được dùng nhất. Hashcat sẽ lần lượt tạo ra các cặp kết hợp giữa danh sách username và danh sách password và lần lượt thử đăng nhập bằng các cặp kết hợp này cho đến khi tìm ra được username và password chính xác hoặc cho đến khi tất cả các cặp kết hợp đều đã được thử và không có cặp nào chính xác.
+* Mask (-a 3): Mask attack tương tự như Bruteforce attack, bạn sẽ cung cấp một loạt các ký tự ví dụ a, b, c, d, e, f, 1, 2, 3, v.v. và từ các ký tự được cung cấp này, Hashcat sẽ tự kết hợp các ký tự lại với nhau và tạo ra các chuỗi ký tự ngẫu nhiên ví dụ như abc123, và các chuỗi này sẽ được dùng để tấn công giống như Dictionary attack. Cách tấn công này sẽ phù hợp để tìm những username và password không nằm trong danh sách được cung cấp khi tấn công Dictionary attack, tuy nhiên sẽ rất mất thời gian.
+* Hybrid (-a 6 và -a 7): Kết hợp cả Dictionary attack và Mask attack.
+
+**Một câu lệnh tấn công Hashcat cơ bản sẽ có cú pháp như sau:**
+
+
+
+
+
+
+
+
 
 
 
