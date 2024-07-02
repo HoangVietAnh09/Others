@@ -291,10 +291,78 @@ Nmap được tích hợp bên trong Metasploit sẽ được chia làm 2 câu l
 * db_nmap: Khi sử dụng db_nmap chức năng hoàn toàn tương tự như Nmap bình thường thôi, tuy nhiên kết quả thu được từ db_nmap sẽ được lưu vào cơ sở dữ liệu PostgreSQL nhằm phục vụ cho việc truy xuất lại dữ liệu về sau.
 * nmap: Câu lệnh Nmap bình thường, kết quả không được lưu vào cơ sở dữ liệu PostgreSQL của Metasploit.
 ## Identifying vulnerabilities
-## Exploiting vulnerabilities
+Đầu tiên mình tìm tất cả các cổng chạy TCP bằng lệnh: ```nmap -vv -Pn -T4 -p- -oN thuc_hanh_metasploit_TCP_scan <ip address victim>```
 
+*Bởi vì nó phải quét hết hơn 65000 port nên sẽ khá lâu*
+
+Giải thích các tham số:
+* -vv: thực hiện theo thời gian thực
+* -Pn: do server luôn mở nên flag này dùng để bỏ qua bước kiểm tra trạng thái server
+* -T4: scan với tốc độ nhanh nhưng không đảm bảo đầy đủ data
+* -p-: quét hết tất cả 65353 cổng
+* -oN: output ra file thuc_hanh_metasploit_TCP_scan
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/0fdd98a5-7131-4ae6-b7f7-abd46f874ff0)
+
+Sau khi scan xong thì mình thấy victim chạy ở port 80 với version nostromo 1.9.6
+
+Mình dùng lệnh search xem có victim có vuln nào không và mình thấy một modlue khai thác
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/701c21f8-c70b-4330-aeff-9a037fb85945)
+
+## Exploiting vulnerabilities
+Mình dùng lệnh use để sử dụng module này với 0 là giá trị cột (#)
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/f63dc16b-e260-4c49-ba3f-d166b5a2bc5d)
+
+Rồi mình dùng search options để xem các tham số cần để khai thác
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/9eaf6fd1-a12b-46f8-bef2-f6ba187f9917)
+
+Cột required có value là yes là những cột cần phải có value
+
+Mình set 2 giá trị là RHOSTS và LHOST là dịa chỉ của victim và địa chỉa máy mình (địa chỉ sủ dụng openVPN). Bởi vì các giá trị khác như RPORT đã đúng nên ta không set lại nữa
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/484e125d-7850-49eb-a7e7-f68b399fbd1c)
+
+Dùng show option để kiểm tra lại các giá trị
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/37f5e642-f659-41e8-bd85-b5a684359c99)
+
+sau đó dùng lệnh exploit để exploit
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/7f495648-e240-4532-b800-ab3aa310563b)
+
+Nếu như hiện như ảnh là đã exploit thành công
+
+***Trước khi exploit nên kiểm tra xem port mà chúng ta set cho host (LPORT) có chạy dich vụ nào không. Nếu có thì dùng lệnh ```kill <pid>``` với pid là giá trị cột cuối cùng trước dấu "/"***
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/8a96627a-2f8a-42fe-8da5-0079949a342f)
+
+Như trong ảnh là ```kill 159929```
+
+Vì đây là shell thường nên chúng ta sẽ update lên meterpreter
+
+Dùng ```Ctrl + Z``` sau đó chọn y để session này chạy ngầm. Xe các session đang chạy bằng lệnh ```sessions```
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/dcc63fe6-fa3b-461d-ad15-615928d75909)
+
+Để quay lại session ta dùng lệnh ```sessions -i <Id>```
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/880a70e3-2cc3-4d61-b771-ed835b1560f0)
 # Bài 6: Thực hành tấn công webserver với Metasploit (Phần 2)
 ## Upgrade shell lên Meterpreter 
+Để update lên meterpreter shell dùng lệnh: ```sessions -u <session-id>```
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/a9476197-98b4-441f-8e17-b40d62aa7b8c)
+
+ở đây chúng ta thấy meterpreter chạy ss2. Kiểm tra lại các ss đang chạy và truy cập ss2
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/1565febb-a5a3-443d-bc77-b166fc95d7a8)
+
+Ở đây có thể chạy lệnh help để xem các flag
+
+![image](https://github.com/HoangVietAnh09/Others/assets/111860567/1875154d-b7d5-4f57-ac88-3234573914a4)
 ## Post-exploitation
 Trong pentest, post-exploitation dùng để chỉ các hoạt động cần được tiến hành để thu thập các thông tin quan trọng như:
 
