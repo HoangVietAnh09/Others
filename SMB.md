@@ -57,3 +57,24 @@ You can connect to a telnet server with the following syntax:
     "telnet [ip] [port]"
 
 We're going to need to keep this in mind as we try and exploit this machine.
+
+# FTP
+
+What is FTP?
+
+File Transfer Protocol (FTP) is, as the name suggests , a protocol used to allow remote transfer of files over a network. It uses a client-server model to do this, and- as we'll come on to later- relays commands and data in a very efficient way.
+
+How does FTP work?
+
+A typical FTP session operates using two channels:
+* a command (sometimes called the control) channel
+* a data channel.
+
+Active vs Passive
+
+The FTP server may support either Active or Passive connections, or both. 
+
+* In an Active FTP connection, the client opens a port and listens. The server is required to actively connect to it. 
+* In a Passive FTP connection, the server opens a port and listens (passively) and the client connects to it.
+
+connect to ftp client: ftp ip
