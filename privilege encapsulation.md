@@ -1,3 +1,4 @@
+## Enumeration
 ### hostname
 The ***hostname*** command will return the hostname of the target machine. Although this value can easily be changed or have a relatively meaningless string (e.g. Ubuntu-3487340239), in some cases, it can provide information about the target system’s role within the corporate network (e.g. SQL-PROD-01 for a production SQL server).
 ### uname -a
@@ -65,4 +66,22 @@ Folders and files that can be written to or executed from:
 * find / -perm -222 -type d 2>/dev/null: Find world-writeable folders
 * find / -perm -o w -type d 2>/dev/null: Find world-writeable folders
 * find / -perm -o x -type d 2>/dev/null : Find world-executable folders
+## Privilege Escalation: Kernel Exploits
+Privilege escalation ideally leads to root privileges. This can sometimes be achieved simply by exploiting an existing vulnerability, or in some cases by accessing another user account that has more privileges, information, or access.
+
+Unless a single vulnerability leads to a root shell, the privilege escalation process will rely on misconfigurations and lax permissions.
+
+The kernel on Linux systems manages the communication between components such as the memory on the system and applications. This critical function requires the kernel to have specific privileges; thus, a successful exploit will potentially lead to root privileges.
+
+The Kernel exploit methodology is simple:
+
+* Identify the kernel version
+* Search and find an exploit code for the kernel version of the target system
+* Run the exploit 
+
+Although it looks simple, please remember that a failed kernel exploit can lead to a system crash. Make sure this potential outcome is acceptable within the scope of your penetration testing engagement before attempting a kernel exploit. 
+## Privilege Escalation: Sudo
+## Privilege Escalation: SUID
+## Privilege Escalation: Capabilities
+
 
