@@ -25,5 +25,38 @@ Kiến trúc IoT phụ thuộc vào 5 lớp sau:
 Mô hình thiết bị với thiết bị là một mô hình giao tiếp IoT cơ bản trong đó hai thiết bị đang giao tiếp với nhau mà không can thiệp vào bất kỳ thiết bị nào khác. Giao tiếp này được thiết lập bằng phương tiện như mạng không dây. Ví dụ là người dùng Điện thoại di động và máy in Wi-Fi. Người dùng có thể kết nối bằng Wi-Fi và gửi lệnh để in.
 
 ![image](https://github.com/user-attachments/assets/e6f3c5cd-06f4-40aa-a141-da96693e093e)
+### Device-to-Cloud Model
+Mô hình thiết bị với đám mây là một mô hình giao tiếp IoT khác trong đó các thiết bị IoT giao tiếp trực tiếp với máy chủ ứng dụng.
+
+![image](https://github.com/user-attachments/assets/10f92ded-1ab3-41d3-9e15-0ce3fbc60f6a)
+### Device-to-Gateway Model
+Mô hình thiết bị với cổng tương tự như mô hình Device to cloud. Thiết bị IoT được thêm vào để thu thập dữ liệu từ các cảm biến và gửi đến máy chủ ứng dụng từ xa. Ngoài ra, bạn sẽ có một điểm hợp nhất, nơi bạn có thể kiểm tra và kiểm soát dữ liệu được truyền đi.
+
+![image](https://github.com/user-attachments/assets/0ab28fcd-6e1c-4d84-b949-a8a1d46a582e)
+### Back-End Data-Sharing Model
+Mô hình Chia sẻ Dữ liệu Back-End là một mô hình nâng cao trong đó các thiết bị đang giao tiếp với các máy chủ ứng dụng. Điều này được sử dụng trong quan hệ đối tác tập thể giữa các nhà cung cấp ứng dụng khác nhau.
+
+![image](https://github.com/user-attachments/assets/bfe1b2ea-4b80-4099-bf5c-de035033e8b9)
+## Hiểu các cuộc tấn công IoT
+### Những thách thức đối với IoT
+Có rất nhiều thách thức đối với việc triển khai Internet of Things (IoT). Vì nó mang lại sự dễ dàng, di động và kiểm soát nhiều hơn các quy trình. Có các mối đe dọa, lỗ hổng bảo mật và thách thức đối với công nghệ IoT. Một số thách thức lớn đối với công nghệ IoT như sau:
+
+* Thiếu an ninh
+* Thiết bị dễ bị tổn thương
+* Rủi ro An ninh Vật lý
+* Thiếu sự hỗ trợ của nhà cung cấp
+* Khó cập nhật chương trình cơ sở và hệ điều hành
+* Vấn đề về khả năng tương tác
+### Các cuộc tấn công IoT
+#### DDoS Attack
+Tấn công từ chối dịch vụ phân tán như đã định nghĩa trước đó nhằm mục đích làm cho các dịch vụ của mục tiêu không khả dụng. Sử dụng tấn công DDoS, tất cả các thiết bị IoT, cổng IoT và máy chủ ứng dụng có thể bị nhắm đến và gửi yêu cầu tràn ngập dẫn đến từ chối dịch vụ.
+#### Rolling Code Attack
+Rolling code hoặc Code hopping là một kỹ thuật khác để khai thác. Trong kỹ thuật này, kẻ tấn công nắm bắt mã, chuỗi hoặc tín hiệu từ các thiết bị phát và đồng thời chặn thiết bị thu nhận tín hiệu. Mã đã được chụp này sau đó sẽ được sử dụng để truy cập trái phép.
+
+
+
+
+
+
 
 
