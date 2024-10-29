@@ -52,6 +52,23 @@ Có rất nhiều thách thức đối với việc triển khai Internet of Thi
 Tấn công từ chối dịch vụ phân tán như đã định nghĩa trước đó nhằm mục đích làm cho các dịch vụ của mục tiêu không khả dụng. Sử dụng tấn công DDoS, tất cả các thiết bị IoT, cổng IoT và máy chủ ứng dụng có thể bị nhắm đến và gửi yêu cầu tràn ngập dẫn đến từ chối dịch vụ.
 #### Rolling Code Attack
 Rolling code hoặc Code hopping là một kỹ thuật khác để khai thác. Trong kỹ thuật này, kẻ tấn công nắm bắt mã, chuỗi hoặc tín hiệu từ các thiết bị phát và đồng thời chặn thiết bị thu nhận tín hiệu. Mã đã được chụp này sau đó sẽ được sử dụng để truy cập trái phép.
+#### BlueBorne Attack
+Cuộc tấn công blueborne được thực hiện bằng các kỹ thuật khác nhau để khai thác các lỗ hổng Bluetooth. Tập hợp các kỹ thuật để truy cập trái phép vào các thiết bị hỗ trợ Bluetooth được gọi là tấn công Blueborne.
+#### Jamming Attack
+Kẹt tín hiệu để ngăn các thiết bị giao tiếp với nhau và với máy chủ.
+#### Backdoor
+Triển khai cửa sau trên máy tính của nhân viên trong tổ chức hoặc nạn nhân để truy cập trái phép vào mạng riêng. Nó không phải là tất cả về việc tạo một backdoor trên các thiết bị IoT.
+### Phương pháp tấn công IoT
+#### Information Gathering
+Bước đầu tiên để hack IoT là yêu cầu thu thập thông tin. Thu thập thông tin bao gồm trích xuất thông tin như địa chỉ IP, giao thức đang chạy, cổng mở, loại thiết bị, thông tin của nhà cung cấp, v.v. Shodan, Censys và Thingful là công cụ tìm kiếm để tìm hiểu thông tin về thiết bị IoT.
+#### Vulnerability Scanning
+Quét lỗ hổng bảo mật bao gồm quét mạng và các thiết bị để xác định các lỗ hổng như mật khẩu yếu, lỗi phần mềm và phần sụn, cấu hình mặc định, v.v. Multi-ping, Nmap, RIoT Vulnerability scanner, Foren6 được sử dụng để quét các lỗ hổng.
+#### Launch Attack
+Khởi động giai đoạn tấn công bao gồm việc khai thác các lỗ hổng này bằng cách sử dụng các cuộc tấn công khác nhau như DDoS, Rolling Code, jamming,… RFCrack, Attify Zigbee Framework, HackRF One là những công cụ phổ biến để tấn công.
+#### Gain Access
+Đạt được quyền truy cập bao gồm việc kiểm soát môi trường IoT. Giành quyền truy cập, nâng cấp đặc quyền cho quản trị viên, cài đặt cửa sau cũng được bao gồm trong giai đoạn này.
+#### Maintain Attack
+
 
 
 
