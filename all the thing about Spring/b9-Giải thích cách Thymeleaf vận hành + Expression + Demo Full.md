@@ -17,3 +17,7 @@ Trong template thymeleaf, để lấy các thông tin trong Model. bạn sẽ s�
 ## ${...} - Variables Expressions
 ## *{...} - Variables Expressions on selections
 Điểm khác biệt là nó sẽ lấy ra giá trị của một biến cho trước bởi th:object
+## #{...} - Message Expression
+## @{...} - URL Expression
+@{...} xử lý và trả ra giá trị URL theo context của máy chủ cho chúng ta.
+
