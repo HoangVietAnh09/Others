@@ -4,6 +4,69 @@
 
 ## Inject Memory Webshell thông quan Fiter
 
+**Filter:** Khi request đến servlet và trả về response có thể đi qua một hoặc nhiều filter(còn gọi là filter chain). Filter có thể thực hiện kiểm tra, sửa đổi các thuộc tính của request hay response.
+
+![image](https://github.com/user-attachments/assets/99f012f0-b9c7-45a2-9502-8b6609d5b0a0)
+
+Khi ứng dụng thực hiện filter thì sẽ gọi đến method doFilter()
+
+Chính vì vậy ta sẽ đặt break point tại method doFilter()
+
+![image](https://github.com/user-attachments/assets/0cbe3e0a-94af-47fa-8dfa-32cac6977323)
+
+Từ quá trình debug ta thấy rằng trước khi gọi đến method doFilter() thì method internalDoFilter trong class ApplicationFilterChain được gọi.
+
+![image](https://github.com/user-attachments/assets/4c910d41-1108-455f-a48e-204f4986afa7)
+
+Trước khi gọi đến method internalDoFilter thì method doFilter được gọi.
+
+```
+public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException {
+        if (Globals.IS_SECURITY_ENABLED) {
+            ServletRequest req = request;
+            ServletResponse res = response;
+
+            try {
+                AccessController.doPrivileged(() -> {
+                    this.internalDoFilter(req, res);
+                    return null;
+                });
+            } catch (PrivilegedActionException var7) {
+                PrivilegedActionException pe = var7;
+                Exception e = pe.getException();
+                if (e instanceof ServletException) {
+                    throw (ServletException)e;
+                }
+
+                if (e instanceof IOException) {
+                    throw (IOException)e;
+                }
+
+                if (e instanceof RuntimeException) {
+                    throw (RuntimeException)e;
+                }
+
+                throw new ServletException(e.getMessage(), e);
+            }
+        } else {
+            this.internalDoFilter(request, response);
+        }
+```
+Trên đây là một đoạn code trong class ApplicationFilterChain
+
+Trước khi gọi đến doFilter() trong ApplicationFilterChain thì hàm invoke() trong StandardWrapperValve được gọi
+
+![image](https://github.com/user-attachments/assets/08ec7783-c870-4178-8d4f-3181b06301f0)
+
+Các method sẽ được gọi theo hướng sau 
+
+![image](https://github.com/user-attachments/assets/1475e9e9-e89e-42e6-a0e1-232587c17548)
+
+
+
+
+
+
 ## Inject Memory Webshell thông qua Listener
 
 **Listener:** Theo dõi các sự kiện khởi tạo hay hủy bỏ của những đối tượng như application, session hay request để thực thi các đoạn mã tương ứng với các sự kiện.
