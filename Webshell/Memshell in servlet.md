@@ -1,4 +1,4 @@
-# Memory Webshell trong Tomcat Servlet
+![image](https://github.com/user-attachments/assets/d1aa7925-07b7-4bc8-ba99-b2a02a5281ff)# Memory Webshell trong Tomcat Servlet
 
 ![image](https://github.com/user-attachments/assets/94fb3827-f2bc-4070-8ab2-adb6fc9ba0d5)
 
@@ -48,7 +48,8 @@ Method requestInitialized() nhận vào tham số dạng ServletRequestEvent.
 
 Đoạn code trên sẽ nhận vào 1 tham số với tên là "cmd". Nếu như giá trị của tham số khác giỗng thì sẽ thực thi giá trị truyền vào.
 
-### Trước hết hãy cùng tìm hiểu về Reflection API
+***Trước hết hãy cùng tìm hiểu về Reflection API***
+
 Reflection API là một phần quan trọng của Java, giúp bạn thao tác với các lớp, phương thức, và thuộc tính ngay cả khi bạn không biết về chúng tại thời điểm biên dịch.
 
 Reflection cho phép bạn khám phá và sử dụng các thành phần của một chương trình trong quá trình chạy (runtime).
@@ -61,7 +62,99 @@ Công dụng chính của Reflection API:
 * Thay đổi giá trị của các trường: Bạn có thể truy cập và thay đổi giá trị của các trường của một đối tượng.
 
 ![image](https://github.com/user-attachments/assets/09f7c3bc-6e34-4925-bb52-1582d833b2a9)
-Một ví dụ về reflect lấy ra tất cả các method.
+> Một ví dụ về reflect lấy ra tất cả các method.
+
+
+Trong servlet ta có thể thêm các listener thông qua hàm addListener() của ServletContext
+
+![image](https://github.com/user-attachments/assets/0bd6346b-d24e-4a79-a966-d033e80cb33e)
+
+Giải thích qua về ServletContext thì ServletContext là một interface trong Java Servlet API, được sử dụng để đại diện cho một môi trường ứng dụng web duy nhất trên máy chủ. Mỗi ứng dụng web được triển khai trên máy chủ ứng dụng sẽ có một đối tượng ServletContext duy nhất, được chia sẻ giữa tất cả các servlet trong ứng dụng đó.
+
+Chức năng của ServletContext:
+
+* Lưu trữ thông tin chung cho toàn bộ ứng dụng
+* Cung cấp các phương thức để lấy thông tin cấu hình
+* Tương tác với máy chủ và tài nguyên ứng dụng
+* Cung cấp khả năng giao tiếp giữa các servlet
+
+Bến cạnh ServletContext cần tìm hiểu thêm 2 cái class là ApplicationContext và ApplicationContextFacade
+
+***ApplicationContext***
+
+* Được kế thừa lại từ class ServletContext nên thực hiện các chức năng sử lí logic của ServletContext
+
+***ApplicationContextFacade***
+
+* ApplicationContextFacade là một lớp proxy hoặc wrapper cho ApplicationContext.
+* Nó đóng vai trò như một lớp bảo vệ giữa các servlet và logic nội bộ của Tomcat.
+* Thay vì cho phép các servlet tương tác trực tiếp với ApplicationContext, Tomcat cung cấp đối tượng ServletContext thông qua ApplicationContextFacade.
+* Cách hoạt động: Khi bạn gọi getServletContext() trong một servlet, Tomcat không trả về trực tiếp một đối tượng ApplicationContext. Thay vào đó, nó trả về một đối tượng ApplicationContextFacade. ApplicationContextFacade sẽ chuyển tiếp (delegate) lời gọi phương thức của bạn tới ApplicationContext.
+
+Từ đây ta thấy rằng để có thể thực hiện thêm 1 listener mới ta phải thực hiện qua class ApplicationContextFacade
+
+Trong ApplicationContextFacade có hàm addListener() gọi đến hàm addListener() của ApplicationContext.
+
+![image](https://github.com/user-attachments/assets/4097a208-df29-4c6e-97b2-4da38f36d912)
+
+![image](https://github.com/user-attachments/assets/b7e65cdb-e907-4b3b-ab75-09bcdc05378a)
+
+Trong ApplicationContext ta thấy hàm addListener gọi đến hàm addApplicationLifecycleListener() của StandardContext
+
+![image](https://github.com/user-attachments/assets/4f327543-a5bf-4d78-9aab-a0f4ad11a9c0)
+
+
+![image](https://github.com/user-attachments/assets/81bd0d26-52da-4214-86bb-3b07e2c626cd)
+
+![image](https://github.com/user-attachments/assets/db960994-8d79-43be-870d-0abc6a4856a9)
+
+Lúc này thì Listener thực sự được add vào trong Context của Web Server theo thứ tự sau 
+
+![image](https://github.com/user-attachments/assets/0f98d22d-ead2-497c-baae-806d8b6cf9d3)
+
+Tuy nhiên quay lại với class ApplicationContext ta thấy có hàm checkState để kiểm tra trạng thái.
+
+Nếu không trải là trạng thái trước khi bắt đầu thì sẽ sinh ra ngoại lệ 
+
+![image](https://github.com/user-attachments/assets/7fb4d50d-9222-4782-8140-059ebec146d7)
+
+![image](https://github.com/user-attachments/assets/3c6c8ef9-02bb-4f8d-9487-6a183ed7f9ec)
+> Các giá trị được định nghĩa trong enum LifecycleState
+
+Từ đây ta thấy rằng nêu thêm listener ở class ApplicationContext sẽ không thể được do class này có điều kiện đối chiếu.
+
+Chính vì vậy ta phải thêm ở class StandardContext
+
+> Đúc kết lại thì ý tưởng sẽ là thêm listener ở class StandardContext bằng cách thông qua Reflect API
+
+![image](https://github.com/user-attachments/assets/a126fc4b-1b83-409b-a638-6c4edc5ce9c1)
+
+Thông qua 2 lần ánh xạ ta đã có thể thêm được 1 listener mới
+
+Bằng các lỗ hỗ trên trang web cho phép upload file độc hại ta có thể ta có thể inject một file .jsp làm shell thực thi lệnh
+
+![image](https://github.com/user-attachments/assets/dcc9c6f6-df84-45c2-9fc2-8581f102b4c4)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
