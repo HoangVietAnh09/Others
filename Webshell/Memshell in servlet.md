@@ -60,7 +60,21 @@ Trước khi gọi đến doFilter() trong ApplicationFilterChain thì hàm invo
 
 Các method sẽ được gọi theo hướng sau 
 
-![image](https://github.com/user-attachments/assets/1475e9e9-e89e-42e6-a0e1-232587c17548)
+![image](https://github.com/user-attachments/assets/6cbc31d4-2353-4e38-9c3d-961829a233c6)
+
+Trước hết chúng ta cần phải biết một số khái niệm sau:
+
+* Biến filterMaps: ánh xạ các URL với tất cả các filter
+* filterDefs: chứa tất cả các biến , bao gồm các biến ở bên trong các đối tượng
+* Biến filterConfigs: chứa tất cả thông tin trong filterDef và các đối tượng filer tương ứng với các filter và quản lí filter
+
+
+
+
+
+
+
+
 
 
 
