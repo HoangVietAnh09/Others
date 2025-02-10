@@ -262,7 +262,31 @@ Bằng các lỗ hỗ trên trang web cho phép upload file độc hại ta có 
 ![image](https://github.com/user-attachments/assets/dcc9c6f6-df84-45c2-9fc2-8581f102b4c4)
 
 
+## Inject Memory Webshell thông qua Servlet
+### Tìm hiểu về StandardWrapper
+#### Giới thiệu về StandardWrapper
+StandardWrapper là một lớp trong Apache Tomcat, đóng vai trò quản lý vòng đời của một Servlet trong ứng dụng web. Nó là một wrapper (bao bọc) giúp Tomcat quản lý từng Servlet riêng lẻ theo chuẩn Java Servlet API.
+#### Vai trò của StandardWrapper trong Tomcat
+* Quản lý vòng đời Servlet
+  * Gọi init() khi Servlet được khởi tạo
+  * Xử lý request bằng service()
+  * Gọi destroy() khi Servlet bị dỡ bỏ
+  * Lấy thông tin của servlet getServletInfo()
+  * Cấu hình servlet getServletConfig()
+* Quản lý instance Servlet
+* Hỗ trợ tải Servlet theo yêu cầu (Lazy Loading)
+* Ghi log & xử lý lỗi Servlet
 
+#### Cách StandardWrapper hoạt động
+* Khi Tomcat khởi động
+  * StandardWrapper được tạo ra cho mỗi Servlet được định nghĩa trong ứng dụng.
+  * Nếu load-on-startup >= 0, nó sẽ khởi tạo Servlet ngay lập tức.
+* Khi có request đến Servlet
+  * Nếu Servlet chưa được khởi tạo, StandardWrapper sẽ gọi loadServlet().
+  * service() của Servlet được gọi để xử lý request.
+* Khi Tomcat dừng hoặc ứng dụng bị undeploy
+  * StandardWrapper gọi destroy() để dọn dẹp tài nguyên
+ 
 
 
 
@@ -294,4 +318,3 @@ Bằng các lỗ hỗ trên trang web cho phép upload file độc hại ta có 
 
 
 
-## Inject Memory Webshell thông qua Servlet
