@@ -1,8 +1,10 @@
+
+
 ![image](https://github.com/user-attachments/assets/d1aa7925-07b7-4bc8-ba99-b2a02a5281ff)# Memory Webshell trong Tomcat Servlet
 
 ![image](https://github.com/user-attachments/assets/94fb3827-f2bc-4070-8ab2-adb6fc9ba0d5)
 
-## Inject Memory Webshell thông quan Fiter
+## Inject Memory Webshell thông quan Filter
 
 **Filter:** Khi request đến servlet và trả về response có thể đi qua một hoặc nhiều filter(còn gọi là filter chain). Filter có thể thực hiện kiểm tra, sửa đổi các thuộc tính của request hay response.
 
@@ -68,17 +70,64 @@ Trước hết chúng ta cần phải biết một số khái niệm sau:
 * filterDefs: chứa tất cả các biến , bao gồm các biến ở bên trong các đối tượng
 * Biến filterConfigs: chứa tất cả thông tin trong filterDef và các đối tượng filer tương ứng với các filter và quản lí filter
 
+![image](https://github.com/user-attachments/assets/08ec7783-c870-4178-8d4f-3181b06301f0)
 
+Ta thử đi vào trường filterChain thì thấy rằng trường này được tạo ra từ ApplicationFilterFactory.createFilterChain(request, wrapper, servlet);
 
+![image](https://github.com/user-attachments/assets/dc6137bf-995e-4af8-922e-80310cf4cfc7)
 
+Thử vào class ApplicationFilter, ta thấy rằng một mảng FilterMap được tạo ra lấy giá trị từ StandardContext 
 
+![image](https://github.com/user-attachments/assets/f9542b9a-6962-419f-8f5b-3c269c1f6df2)
 
+Giá trị của các phần từ trong FilterMap chứa các thông tin về tên, đường dẫn đến path truy cập và path được filter
 
+![image](https://github.com/user-attachments/assets/8d1a3f1e-337b-4b82-952b-d10afa9b45cc)
 
+Tiếp đến sẽ kiểm tra xem path hiện tại của ứng dụng có giống với path được filter hay không và kiểm tra xem filter này có phù hợp với kiểu dispatcher hiện tại không.
 
+![image](https://github.com/user-attachments/assets/b2376c75-a441-4c7c-b604-c4b66b8b1823)
 
+![Screenshot 2025-02-10 134206](https://github.com/user-attachments/assets/4c649a49-ec0b-4351-b676-7c9e6b9376fb)
 
+Nếu phù hợp thì sẽ thêm filterConfig được tạo ở trên vào filterChain 
 
+![image](https://github.com/user-attachments/assets/aafed92c-9659-4470-b364-4457f93b73d0)
+
+Debug ta thu được các trường trong ApplicationFilterConfig(config). Trong đó có bao gồm trường filterDef chứa các thông tin về filter như filterName hay filterClass
+
+***Giải thích về Dispatcher***
+
+Trong Java Servlet, dispatcher là cơ chế để chuyển tiếp hoặc chuyển hướng request từ một servlet này sang một servlet khác hoặc JSP.
+
+Có hai loại chính:
+* Request Dispatcher (RequestDispatcher)
+  * RequestDispatcher là một interface trong Servlet API, hỗ trợ hai phương thức:
+    * forward(request, response) → Chuyển tiếp request.
+    * include(request, response) → Bao gồm nội dung từ một resource khác.
+* Dispatcher Type (DispatcherType)
+  
+  |DispatcherType|Ý nghĩa|
+  |:---:|:----:|
+  |REQUEST|Request trực tiếp từ client (mặc định)|
+  |FORWARD|Request được chuyển tiếp từ RequestDispatcher.forward()|
+  |INCLUDE|Request được bao gồm từ RequestDispatcher.include()|
+  |ERROR|Request được xử lý bởi trang lỗi|
+  |ASYNC|Request đang xử lý bất đồng bộ (async)|
+
+Từ đây ta có thể thấy được hướng khai thác sẽ là:
+* Tạo một filterDef sau đó thêm nào StandardContext
+* Tạo ra một ApplicationFilterConfig mới từ filterDef ở trên bằng method filterStart() trong StandardContext
+
+![image](https://github.com/user-attachments/assets/f75bf030-ae38-45a3-a27c-b61bdec6608b)
+
+* Tạo filterMap rồi thêm vào StandardContext để filter thực hiện
+
+Sau khi upload shell mình xóa file shell đi và kết quả mình vẫn thực hiện được lệnh tức là đã thành công
+
+![image](https://github.com/user-attachments/assets/62ca7dff-b184-4e36-86f1-21648b72e023)
+
+![image](https://github.com/user-attachments/assets/fee23c8d-dbf2-4e53-9514-1f999190eaff)
 
 
 ## Inject Memory Webshell thông qua Listener
