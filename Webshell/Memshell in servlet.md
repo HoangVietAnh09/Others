@@ -266,6 +266,8 @@ Bằng các lỗ hỗ trên trang web cho phép upload file độc hại ta có 
 ### Tìm hiểu về StandardWrapper
 #### Giới thiệu về StandardWrapper
 StandardWrapper là một lớp trong Apache Tomcat, đóng vai trò quản lý vòng đời của một Servlet trong ứng dụng web. Nó là một wrapper (bao bọc) giúp Tomcat quản lý từng Servlet riêng lẻ theo chuẩn Java Servlet API.
+
+Container là một interface trong Tomcat dùng để chứa các Wrapper hoặc Context
 #### Vai trò của StandardWrapper trong Tomcat
 * Quản lý vòng đời Servlet
   * Gọi init() khi Servlet được khởi tạo
@@ -286,6 +288,22 @@ StandardWrapper là một lớp trong Apache Tomcat, đóng vai trò quản lý 
   * service() của Servlet được gọi để xử lý request.
 * Khi Tomcat dừng hoặc ứng dụng bị undeploy
   * StandardWrapper gọi destroy() để dọn dẹp tài nguyên
+ 
+Trong class StandardContext ta thấy có method là addChild() với tham số chuyền vào là một conntainer với chức năng chính là thay thế Servlet JSP cũ bằng một Servlet JSP mới và đảm bảo việc ánh xạ URL đến servlet mới.
+
+  ![Screenshot 2025-02-11 091850](https://github.com/user-attachments/assets/cd6878c4-5e5e-4a3f-b083-a33823825dd0)
+
+Không chỉ vậy trong StandardContext còn hộ trợ tạo một wrapper mới thông qua method createWrapper()
+
+![image](https://github.com/user-attachments/assets/6a09ec0a-f2dc-4c20-a97f-7c68a8984aa3)
+
+
+Từ đấy ta hình dung được quá quá trình inject sẽ là 
+* Tạo một wrapper mới
+* Set các giá trị cho các thuộc tính của wrapper này
+* Thay thế các servlet cũ bằng servlet mới vừa tạo
+
+
  
 
 
