@@ -34,7 +34,7 @@ When you initialize your project, HG creates a hidden folder of .hg in the curre
 Tool: https://github.com/kost/dvcs-ripper
 #### 1.1.2.2 Sensitive Backup Files
 1. gedit backup file
-Under Linux, after saving with a gedit editor, a file with the suffix “~” will be created in the current directory, the contents of which will be the content of the file you just edited. If the file you just saved is named flag, then the file is named flag~.
+Under Linux, after saving with a gedit editor, a file with the suffix "\~" will be created in the current directory, the contents of which will be the content of the file you just edited. If the file you just saved is named flag, then the file is named flag~.
 2. vim backup file
 When a user is editing a file and exits abnormally. (e.g., when connecting to the server via SSH, the user may
 encounter a command-line jam while editing a file with vim due to insufficient network speed), a backup file is generated in the current directory with the following filename format. 
