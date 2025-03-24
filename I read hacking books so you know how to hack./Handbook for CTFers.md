@@ -229,3 +229,63 @@ var_name]]
 [FOR UPDATE | LOCK IN SHARE MODE]]
 ```
 1. Injection point at select_expr
+![image](https://hackmd.io/_uploads/Bklv7jChJg.png)
+> Code example
+
+2. injection point at table_reference
+![image](https://hackmd.io/_uploads/SJAb4jAnyx.png)
+> Code example
+
+We can still retrieve the data directly using aliases, such as
+
+payload: http://127.0.0.1/phpsec/SQLi/sqln1.php?table=(select%20test%20as%20password%20from%20test_ssqli)x
+
+3. The injection point is after WHERE or HAVING.
+![image](https://hackmd.io/_uploads/Hy24UiCnJg.png)
+> Code example
+
+It is basic injection
+
+4. The injection point is after the GROUP BY or ORDER BY.
+![image](https://hackmd.io/_uploads/ByDrvoR2kl.png)
+> Code example
+
+After testing, it was found that titl=username desc,(if(1,sleep(1),1)) makes the response
+1-second delay, so you can use the time injection method to get the sensitive data.
+
+5. The injection point is after LIMIT.
+By changing the limit number, the page will show more or fewer records. Due to the
+syntax limitation, the previous character injection method is not suitable (only
+numbers can be injected after LIMIT). Alternatively, we can try injecting by using
+the PROCEDURE keyword based on the SELECT syntax, which is only available
+for versions of MySQL **before 5.6**
+
+![image](https://hackmd.io/_uploads/rykIqiRnkl.png)
+> Payload exploit
+
+Write to a file 
+>select 'something' into outfile '/tmp/test.php' lines terminated by '<?php phpinfo();?>'
+
+#### 1.2.2.2 INSERT Statement Injection
+1. The injection point is located at tbl_name
+![image](https://hackmd.io/_uploads/SJj4nsCn1e.png)
+> Code example
+
+The developer expects to control the table’s value as wp_news to insert records
+into the news table. Since we can control the table name, we can access http://127.0.0.1/phpsec/SQLi/SQlInsert.php?table=test_ssqli%20values(%27ccccc%27)--%20-
+
+2. The injection point is located in VALUES.
+![image](https://hackmd.io/_uploads/SkgOps0hyl.png)
+> Code Example
+
+You can close the single quote and then insert another record. Usually, the
+administrator and the regular user are in the same table. 
+An administrator user can be inserted if the second field of the user table
+represents the administrator privilege flag. In some cases, we can also insert data
+into a field that can be displayed back to the user to get the data quickly. Assuming
+that the data from the last field will be displayed on the page, the first user's password
+can be injected using the following statement.
+
+![image](https://hackmd.io/_uploads/HyHgJ3C31x.png)
+
+
