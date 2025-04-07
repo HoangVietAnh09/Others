@@ -43,5 +43,15 @@ select name from demo where name = 'dasd' union values(char(97)||char(100)||char
 
 ?id=1')) union select load_file("/etc/passwd"),2,3 into outfile "/var/www/html/<web-root>/2.txt";-- -
 
+# Bypass add slash into single quote us
+
+Nguyên tắc: Khi mySQL sử dụng mã hóa GBK, nó sẽ coi hai ký tự là một ký tự Trung Quốc, ví dụ: %aa%5c là một ký tự Trung Quốc (mã ascii trước đó lớn hơn 128 để đạt được phạm vi ký tự Trung Quốc). Khi chúng ta lọc ', chúng ta thường sử dụng ý tưởng chuyển đổi ' thành \' (hàm hoặc ý tưởng chuyển đổi sẽ được giới thiệu tại thời điểm của mỗi cấp độ).
+
+Do đó, chúng ta đang cố gắng tìm cách loại bỏ \ được thêm vào trước đó, và nói chung có hai cách suy nghĩ:
+
+%df ăn \ Lý do cụ thể là urlencode(\') = %5c%27, chúng ta thêm %df trước %5c%27 để tạo thành %df%5c%27 và mysql được đề cập ở trên sẽ coi hai byte là ký tự Trung Quốc khi mã hóa bằng GBK, trong đó %df%5c là ký tự Trung Quốc và %27 được sử dụng như một ký hiệu riêng biệt bên ngoài, điều này cũng đạt được mục đích của chúng ta.
+Lọc ra \ trong \', ví dụ: bạn có thể xây dựng %**%5c%5c%27 và %5c sau sẽ được chú thích bởi %5c trước đó. Đây cũng là một cách để bỏ qua.
+
+
 
 
