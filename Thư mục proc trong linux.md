@@ -14,3 +14,7 @@
 * /proc/self/environ: Biến môi trường của tiến trình.
 * /proc/self/fd/: Thư mục chứa các file descriptor mà tiến trình đang mở.
 * /proc/self/cwd: Đường dẫn đầy đủ tới thư mục làm việc hiện tại của tiến trình.
+
+
+* /proc/1/task/10/root/flag.txt
+* /proc/1/task/1/root/proc/19/root/flag.txt
